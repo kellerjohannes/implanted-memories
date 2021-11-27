@@ -1,0 +1,1112 @@
+
+
+(define implanted-memories
+  (lambda (i performance)
+    (let ((composition '(polina korobkova))
+          (performance composition)
+          (arciorgano 'arciorgano)
+          (programming '(johannes keller))
+          (artist '(michael kleine))
+          (visual-decisions artist))
+      (cond
+        ((or (equal? i machine) (equal? (programmed? i) #t))
+          (my-decision? i))
+        (set! performance (not (list 'piece 'music)))
+        ((not (member performance)) #t)
+        (else
+          (set! here (now)))))))
+
+
+
+; intro
+
+(define intro
+  (lambda (t)
+    (let* ((c1 '(72 83 93 104))
+           (c2 '(72 85 93 104))
+           (c3 '(73 83 94 106))
+           (c4 '(108 119 129 138))
+           (c5 '(73 85 94))
+           (c6 '(73 83 94 106))
+           (vs 22000)
+           (s 10000)
+           (n 8000)
+           (f 5000)
+           (vf 2500)
+           (h -1)
+           (m 0.5))
+      ; line 1
+      (harp t c1 n (* 13 *second*))
+      (set! t (+ t (* (+ 13 18) *second*)))
+      (harp t c2 s (* 25 *second*))
+      (set! t (+ t (* (+ 25 7) *second*)))
+      (pln t 4 (* 10 *second*))
+      (pln t 36 (* 10 *second*))
+      (tirata (+ t (* 5.5 *second*)) '(72 85 93 106 108 119 129 136 104 121)
+                                     '(0.2 0.1 0.05 0.05 0.04 0.04 0.07 0.08 0.1 0.1)
+                                     '(-1 -1 -1 -1 -1 -1 -1 100000 100000 88200)
+                                     (* (- 9 5.5) *second*))
+;      (set! t (+ t (* (+ 10 15 *second*))))
+;      (arp t c3 vf (* 2 *second*))
+;      (set! t (+ t (* (+ 2 0.21) *second*)))
+;      ; line 2
+;      (arp t c4 0 (* 1 *second*))
+;      (set! t (+ t (* (+ 1 0.34) *second*)))
+;      (harp t c5 s (* 7 *second*))
+;      (pln t 106 (* 2.8 *second*))
+;      (pln (+ t (* 2.7 *second*)) 108 (* 3 *second*))
+;      (pln (+ t (* 5.5 *second*)) 93 (* 1.5 *second*))
+;      (set! t (+ t (* (+ 7 45) *second*)))
+;      (arp t c6 vf (* 4 *second*))
+;      (set! t (+ t (* (+ 4 12) *second*)))
+;      (pln t 4 (* (+ 6.5 3.11) *second*))
+;      (pln t 36 (* (+ 6.5 3.11) *second*))
+;      (tirata-c (+ t (* 1.21 *second*)) '((94 106 109) (106 109 119) (108 121 129) (104 117 129 136))
+;                                        '(.2 .15 .1 .35)
+;                                        '(0 0 0 5000)
+;                                        (* (- 6.5 1.21) *second*))
+;      (tirata (+ t (* (+ 6.5 1) *second*)) '(73 83 94 106 108 121 129 135 104 119)
+;                                           '(.1 .1 .1 .1 .1 .1 .1 .1 .1 .1)
+;                                           '(-1 -1 -1 -1 -1 -1 -1 -1 -1 -1)
+;                                           (* (- 3.11 1) *second*))
+;      (set! t (+ t (* (+ 6.5 3.11 17) *second*)))
+;      (pln t 4 (* (+ 2.3 4.2) *second*))
+;      (pln t 36 (* (+ 2.3 4.2) *second*))
+;      (tirata (+ t (* 0.9 *second*)) '(73 83 94 106 108 121)
+;                                     '(.166 .166 .166 .166 .166 .166)
+;                                     '(-1 -1 -1 -1 -1 -1)
+;                                     (* (- 2.3 0.9) *second*))
+;      (tirata (+ t (* (+ 2.3 1.1) *second*)) '(72 85 93 106 108 119 129 104 121)
+;                                             '(0.2 0.1 0.05 0.05 0.04 0.07 0.08 0.08 0.1)
+;                                             '(-1 44100 -1 44100 44100 -1 -1 -1 -1)
+;                                             (* (- 4.2 1.1) *second*))
+;      (set! t (+ t (* (+ 2.3 4.2 1.5) *second*)))
+;      (pln t 135 (* 16 *second*))
+;      (pln t 136 (* 16 *second*))
+;      (set! t (+ t (* (+ 16 0.2) *second*)))
+;      (arp t '(73 83 94 106) vf (* 4 *second*))
+;      (set! t (+ t (* (+ 4 0.23) *second*)))
+;      (harp t '(72 85 94 106) s (* 9.5 *second*))
+;      (set! t (+ t (* (+ 9.5 22) *second*)))
+;      (arp t '(72 85 94 106) vf (* 0.5 *second*))
+;      (set! t (+ t (* (+ 0.5 11) *second*)))
+;      (arp t '(72 85 94 106) vf (* 0.7 *second*))
+;      (set! t (+ t (* (+ 0.7 9) *second*)))
+;      (tirata-c t '((72) (83 93 104) (73) (85 93 108) (73) (83 93 106) (72))
+;                  '(.14 .14 .14 .14 .14 .14 .14)
+;                  '(0 0 0 0 0 0 0)
+;                  (* 2 *second*))
+;      (set! t (+ t (* (+ 2 0.32) *second*)))
+;      (arp t '(73 106 72 93 104 105) 0 (* 62 *second*))
+;      (set! t (+ t (* (+ 62 0.17) *second*)))
+;      (pln t 135 (* 6 *second*))
+;      (pln t 136 (* 6 *second*))
+;      (set! t (+ t (* (+ 6 0.56) *second*)))
+;      (harp t '(72 83 93) n (* 1.4 *second*))
+;      (set! t (+ t (* (+ 1.4 12) *second*)))
+;      (harp t '(72 85 93) n (* 0.85 *second*))
+;      (set! t (+ t (* (+ 0.85 25) *second*)))
+;      (tirata-c t '((72) (83 93 104) (73) (85 93 108) (7) (83 93 106) (72) (47 58 104) (83 93 104) (83 93 109) (72) (49 58 70))
+;                  '(.07 .07 .07 .07 .07 .07 .07 .07 .07 .07 .07 .07 .07 .07)
+;                  '(0 0 0 0 0 0 0 0 0 0 0 0 0 0)
+;                  (* 4.2 *second*))
+;      (set! t (+ t (* (+ 4.2 32) *second*)))
+;      (tirata-c t '((72 85 93) (72 85 93) (72 85 93))
+;                  '(.3 .4 .33)
+;                  '(3000 4000 2000)
+;                  (* 2.1 *second*))
+;      (set! t (+ t (* (+ 2.1 8) *second*)))
+;      (tirata-c t '((7) (83 93 106) (49 94 108) (73) (58 85 109) (42) (47 57 68))
+;                  '(.14 .14 .14 .14 .14 .14 .14)
+;                  '(0 0 0 0 0 0 0)
+;                  (* 2 *second*))
+;      (set! t (+ t (* (+ 2 3) *second*)))
+;      (arp t '(7 47 57 106) vf (* 21 *second*))
+;      (set! t (+ t (* (+ 21 17) *second*)))
+;      (pln t 7 (* (+ 3.11 8) *second*))
+;      (pln t 42 (* (+ 3.11 8) *second*))
+;      (tirata (+ t (* 0.6 *second*)) '(73 83 94 106 108 121 129 104 119 136)
+;                                     '(.1 .1 .1 .1 .1 .1 .1 .1 .1 .1)
+;                                     '(22000 -1 -1 18000 -1 -1 -1 -1 -1 -1)
+;                                     (* 3.11 *second*))
+;      (tirata-c (+ t (* (+ 3.11 2.4) *second*)) '((93 106 109) (106 109 119) (108 119 129) (104 119 129 136))
+;                                                '(.15 .15 .3 .4)
+;                                                '(8000 8000 0 4000)
+;                                                (* (- 8 2.4) *second*))
+;      (set! t (+ t (* (+ 3.11 8) *second*)))
+;      (tirata-c t '((106 109 119) (108 119 129) (104 119 129 136))
+;                  '(.33 .33 .33)
+;                  '(0 0 0)
+;                  (* 1.4 *second*))
+;      (set! t (+ t (* 1.4 *second*)))
+;      (pln t 7 (* (+ 3.11) *second*))
+;      (pln t 42 (* (+ 3.11) *second*))
+;      (tirata (+ t (* .34 *second*)) '(73 47 130 34 108 121 57 106 47 136)
+;                                     '(.1 .1 .1 .1 .1 .1 .1 .1 .1 .1)
+;                                     '(-1 -1 -1 -1 -1 -1 -1 -1 -1 -1)
+;                                     (* (- 3.11 0.34) *second*))
+;      (set! t (+ t (* (+ 3.11 9) *second*)))
+;      (tirata-c t '((72 85 93 104) (72 85 93 104) (72 85 93 104) (72 85 93 104) (72 85 93 104))
+;                  '(.2 .2 .2 .2 .2)
+;                  '(2000 2000 2000 2000 2000)
+;                  (* 1.8 *second*))
+      (+ t (* 4 *second*)))))
+
+
+(define tirata
+  (lambda (t pl tl dl d)
+    (cond
+      ((null? pl) 0)
+      (else
+        (pln t (car pl) (if (= (car dl) -1)
+                               (* (car tl) d 1.3)
+                               (car dl)))
+        (tirata (+ t (* (car tl) d)) (cdr pl) (cdr tl) (cdr dl) d)))))
+
+(define tirata-c
+  (lambda (t pl tl sl d)
+    (cond
+      ((null? pl) 0)
+      (else
+        (arp t (car pl) (car sl) (* (car tl) d))
+        (tirata-c (+ t (* (car tl) d)) (cdr pl) (cdr tl) (cdr sl) d)))))
+
+
+
+; verse1
+
+
+;(define harpr
+;  (lambda (t l s d)
+;    (harpr-loop ())))
+
+(define verse1
+  (lambda (t)
+    (let* ((sec 44100)
+          (c1 '(72 83 93 104)) ;e7
+          (c1. '(73 85 94 106))
+          (c2 '(63 72 83 93)) ;c#
+          (c2. '(64 73 85 94))
+          (c3 '(51 63 72 83)) ;a
+          (c3. '(52 64 73 85))
+          (c4 '(42 51 63 72)) ;f#
+          (c4. '(43 52 64 73))
+          (f 4000)
+          (art 0.0)
+          (loop (lambda (sc)
+                  (cond
+                    ((null? sc) 0)
+                    (else
+                      (let ((cmd (car sc)))
+                        (arp t (eval (car cmd)) (eval (cadr cmd)) (* sec (eval (caddr cmd))))
+                        (set! t (+ t (* (caddr cmd) sec) (* (eval (cadddr cmd)) sec)))
+                        (loop (cdr sc))))))))
+            (loop '((c1 f 4.5 0.34) (c2 f 3.8 0.21) (c3 f 4.2 art) (c4 f 4.5 1.2) (c1 f 3.8 0.85) (c2. f 4.2 0.34) (c3 f 4.5 0.21) (c4 f 3.8 art)
+                    (c1 f 4.2 1.2) (c2. f 4.5 0.85) (c3. f 3.8 0.34) (c4 f 4.2 0.21) (c1 f 4.5 art) (c2. f 3.8 1.2) (c3. f 4.2 0.85) (c4. f 4.5 0.34)
+                    (c1. f 3.8 0.21) (c2. f 4.2 art) (c3. f 4.5 1.2) (c4. f 3.8 0.85) (c1 f 4.2 0.34) (c2. f 4.5 0.21) (c3. f 3.8 art) (c4. f 4.2 1.2)
+                    (c1 f 4.5 0.85) (c2 f 3.8 0.34) (c3. f 4.2 4.8)))
+            t)))
+
+
+
+
+
+
+; helper tools and parser-commands (via musicXML / sibelius-textareas)
+
+(define arp-loop
+  ; starttime pitchlist original-pitchlist speed note-duration endtime
+  (lambda (t l ol s d et)
+    (cond
+      ((> t et) 0)
+      ((null? l) (arp-loop t ol ol s d et))
+      (else
+        (pln t (car l) d)
+        (callback (+ t 300) 'arp-loop (+ t s) (cdr l) ol s d et)))))
+
+(define arp-loop-ramp
+  (lambda (t l ol et)
+    (cond
+      ((> t et) 0)
+      ((null? l) (arp-loop-ramp t ol ol et))
+      (else
+        (pln t (car l) (arpramper))
+        (callback (+ t 300) 'arp-loop-ramp (+ t (arpramper)) (cdr l) ol et)))))
+
+(define ramper
+  (lambda (init time goal)
+    (let ((inittime (now)))
+      (lambda ()
+        (if (< (+ inittime time) (now))
+          goal
+          (+ init (* (- (now) inittime)
+                     (/ (- goal init)
+                        time))))))))
+
+(define length
+  (lambda (l)
+    (cond
+      ((null? l) 0)
+      (else
+        (+ 1 (length (cdr l)))))))
+
+(define arp-inv
+  (lambda (t l s d)
+    (cond
+      ((null? l) 0)
+      (else
+        (pln (+ t (* (length l) s)) (car l) (- d (* (length l) s)))
+        (arp t (cdr l) s d)))))
+
+(define arp
+  (lambda (t l s d)
+    ;(println "arp: " l)
+    (cond
+      ((null? l) 0)
+      ((< d 0) 0)
+      (else
+        (pln t (car l) d)
+        (arp (+ t s) (cdr l) s (- d s))))))
+
+
+(define motor-pulse
+  (lambda (t)
+    (motor 1)
+    (callback (+ (now) (* t *second*)) 'motor 0)))
+
+(define plcl
+  (lambda (t s e d)
+    (cond
+      ((>= s e) 0)
+      (else
+        (pln t s d)
+        (plcl t (+ s 1) e d)))))
+
+
+; first page ms
+
+(define p1-ver1
+  (lambda (t)
+    (let* ((sec 44100)
+          (c1 '(72 83 93 104))
+          (c2 '(72 85 93 104))
+          (c5 '(73 85 94 106))
+          (c6 '(73 83 94 106))
+          (c7 '(63 72 83 93))
+          (c9 '(72 85 94 106))
+          (c13 '(73 85 72 93 104 105))
+          (c18 '(51 63 72 83))
+          (vs 22000)
+          (s 10000)
+          (n 8000)
+          (f 5000)
+          (vf 2500)
+          (loop (lambda (sc)
+                  (cond
+                    ((null? sc) 0)
+                    (else
+                      (let ((cmd (car sc)))
+                        (arp t (eval (car cmd)) (eval (cadr cmd)) (* sec (eval (caddr cmd))))
+                        (set! t (+ t (* (caddr cmd) sec) (* (cadddr cmd) sec)))
+                        (loop (cdr sc))))))))
+            (loop '((c1 n 13 18) (c2 s 25 7) (c2 n 1.8 0.2) (c1 n 1 1) (c5 s 6 45) (c6 vf 4 12) (c7 vf 3 1.5) (c6 vf 4 0)
+                    (c9 s 9.5 22) (c9 vf 0.5 11) (c9 vf 0.8 5) (c7 vf 0.3 13) (c13 0 62 0) (c7 vf 0.5 12) (c7 vf 0.5 25)
+                    (c1 n 2.5 0) (c7 n 2.5 0) (c18 n 2 2)))
+            t)))
+
+
+; second page ms
+
+(define p2-ver1
+  (lambda (t)
+    (let* ((sec 44100)
+          (br1 '(63 72 85)) ;c sharp
+          (br2 '(66 79 87)) ;d
+          (br3 '(72 85 93)) ;e
+          (s 0)
+          (loop (lambda (sc)
+                  (cond
+                    ((null? sc) 0)
+                    (else
+                      (let ((cmd (car sc)))
+                        (arp t (eval (car cmd)) (eval (cadr cmd)) (* sec (eval (caddr cmd))))
+                        (set! t (+ t (* (caddr cmd) sec) (* (cadddr cmd) sec)))
+                        (loop (cdr sc))))))))
+            (loop '((br1 s 1.13 0.53) (br2 s 1 1.13) (br1 s 1.28 0.12) (br1 s 0.25 0.12) (br1 s 0.06 0.88) (br1 s 0.03 2)
+                    (br1 s 1 0.94) (br2 s 1.05 1.01) (br3 s 5 1.06) (br1 s 1.82 0.18) (br2 s 0.88 1.06) (br1 s 1.91 1) (br2 s 1.18 16)
+                    (br1 s 1.13 0.53) (br2 s 1 3) (br1 s 1 0.94) (br2 s 1.05 1.01) (br3 s 3.2 4.06) (br1 s 1.82 0.18) (br2 s 0.88 1.06) (br1 s 1.91 1) (br2 s 1.18 0)))
+            t)))
+
+(define pre-chorus-ver1
+  (lambda (t)
+    (let* ((sec 44100)
+          (br1 '(63 72 85)) ;c sharp
+          (br2 '(66 79 87)) ;d
+          (br3 '(72 85 93)) ;e
+          (s 0)
+          (art 0.2)
+          (loop (lambda (sc)
+                  (cond
+                    ((null? sc) 0)
+                    (else
+                      (let ((cmd (car sc)))
+                        (arp t (eval (car cmd)) (eval (cadr cmd)) (* sec (eval (caddr cmd))))
+                        (set! t (+ t (* (caddr cmd) sec) (* (eval (cadddr cmd)) sec)))
+                        (loop (cdr sc))))))))
+            (loop '((br1 s 1.13 0.53) (br2 s 1 3)       (br1 s 1 0.94)    (br2 s 1.05 1.01) (br3 s 3.2 4.06)  (br1 s 1.82 0.18) (br2 s 0.88 1.06) (br1 s 1.91 0.8)  (br2 s 0.27 3)
+                    (br1 s 0.31 art)  (br2 s 0.2 17)    (br1 s 1.13 0.53) (br2 s 1 art)     (br1 s 1.13 0.53) (br2 s 1 4)       (br1 s 1 0.94)    (br2 s 1.05 5)    (br3 s 3.2 1.06)  (br1 s 1.82 0.18) (br2 s 0.88 1.06) (br1 s 1.91 1)    (br2 s 1.18 24)
+                    (br1 s 1.13 0.53) (br2 s 1 art)     (br1 s 1.13 0.53) (br2 s 1 art)     (br1 s 1.13 0.53) (br2 s 1 1.13)    (br1 s 1.88 0.12) (br1 s 0.25 0.12) (br1 s 0.06 0.88) (br1 s 0.03 3)    (br1 s 1 0.94)    (br2 s 1.05 1.01) (br3 s 7 1.06)
+                    (br1 s 1.81 9)    (br1 s 1.88 0.12) (br1 s 0.85 0.12) (br1 s 0.06 0.88) (br1 s 0.03 art)  (br1 s 1.88 0.12) (br1 s 0.85 0.12) (br1 s 0.06 0.88) (br1 s 0.03 art)  (br1 s 1.13 0.53) (br2 s 1 art)     (br1 s 1.13 0.53) (br2 s 1 art)
+                    (br1 s 1.13 0.53) (br2 s 1 0.95)    (br1 s 1.13 0.53) (br2 s 1 0.6)     (br1 s 1.13 0.53) (br2 s 1 1.13)    (br1 s 1.88 0.12) (br1 s 0.85 0.12) (br1 s 0.06 0.88) (br1 s 0.03 2)
+                    (br1 s 1 0.94)    (br2 s 1.05 1.01) (br3 s 5 1.06)    (br1 s 1.82 0.18) (br2 s 0.88 1.06) (br1 s 1.01 4)    (br2 s 0.21 art)  (br3 s 9 5)
+                    (br1 s 1 0.94)    (br2 s 1.05 1.01) (br3 s 6 1.06)    (br1 s 1.82 0.18) (br2 s 0.88 1.06) (br1 s 0.31 art)  (br2 s 0.2 11)
+                    (br1 s 1.13 0.53) (br2 s 1 1.13)    (br1 s 1.88 0.12) (br1 s 0.85 0.12) (br1 s 0.06 0.88) (br1 s 0.03 2)
+                    (br1 s 1 0.94)    (br2 s 1.05 1.01) (br3 s 6 1.06)    (br1 s 1.82 0.18)
+                    (br2 s 0.88 1.06) (br1 s 1.91 1)    (br2 s 1.18 16)
+                    (br1 s 1.13 0.53) (br2 s 1 1.13)    (br1 s 1.88 0.12) (br1 s 0.85 0.12) (br1 s 0.06 0.88) (br1 s 0.03 2)
+                    (br1 s 1 0.94)    (br2 s 1.05 1.01) (br3 s 15 1.06)   (br1 s 1.88 0.12) (br1 s 0.85 0.12) (br1 s 0.06 0.88) (br1 s 0.03 1.06) (br1 s 1.82 0.18)
+                    (br2 s 0.88 1.06) (br1 s 1.91 1)    (br2 s 1.18 16)))
+            t)))
+
+
+(define pre-chorus-ver2
+  (lambda (t)
+    (let* ((sec 44100)
+          (br1 '(63 72 85)) ;c sharp
+          (br2 '(66 79 87)) ;d
+          (br3 '(72 85 93)) ;e
+          (s 0)
+          (art 0.2)
+          (loop (lambda (sc)
+                  (cond
+                    ((null? sc) 0)
+                    (else
+                      (let ((cmd (car sc)))
+                        (arp t (eval (car cmd)) (eval (cadr cmd)) (* sec (eval (caddr cmd))))
+                        (set! t (+ t (* (caddr cmd) sec) (* (eval (cadddr cmd)) sec)))
+                        (loop (cdr sc))))))))
+            (loop '((br1 s 1.13 0.53) (br2 s 1 3.8)       (br1 s 1 0.94)    (br2 s 1.05 2.01) (br3 s 3.2 4.06)  (br1 s 1.82 0.18) (br2 s 0.88 1.06) (br1 s 1.91 0.8)  (br2 s 0.27 3)
+                    (br1 s 0.23 art)  (br2 s 0.2 17)    (br1 s 1.13 0.53) (br2 s 1 art)     (br1 s 1.13 0.53) (br2 s 1 7)       (br1 s 1 0.94)    (br2 s 1.05 5)    (br3 s 3.2 1.06)  (br1 s 1.82 0.18) (br2 s 0.88 1.06) (br1 s 0.91 1)    (br2 s 1.18 24)
+                    (br1 s 1.13 0.53) (br2 s 1 art)     (br1 s 1.13 0.53) (br2 s 1 art)     (br1 s 1.13 0.53) (br2 s 1 1.13)    (br1 s 1.88 0.12) (br1 s 0.25 0.12) (br1 s 0.06 0.88) (br1 s 0.03 3)    (br1 s 1 0.94)    (br2 s 1.05 1.01) (br3 s 7 1.06)
+                    (br1 s 1.81 1)    (br2 s 1.98 9)    (br1 s 1.88 0.12) (br1 s 0.25 0.12) (br1 s 0.06 0.88) (br1 s 0.03 art)  (br1 s 1.88 0.12) (br1 s 0.25 0.12) (br1 s 0.06 0.88) (br1 s 0.03 art)  (br1 s 1.88 0.12) (br1 s 0.25 0.12) (br1 s 0.06 0.88) (br1 s 0.03 art) (br1 s 1.13 0.53) (br2 s 1 art) (br1 s 1.13 0.53) (br2 s 1 art) (br1 s 1.13 0.53) (br2 s 1 art) (br1 s 1.13 0.53) (br2 s 1 art) (br1 s 1.13 0.53) (br2 s 1 art) (br1 s 1.13 0.53) (br2 s 1 art)  (br1 s 1.13 0.53) (br2 s 1 13)
+                    (br1 s 1.13 0.53) (br2 s 1 0.95)    (br1 s 1.13 0.53) (br2 s 1 0.6)     (br1 s 1.13 0.53) (br2 s 1 1.13)    (br1 s 1.88 0.12) (br1 s 0.25 0.12) (br1 s 0.06 0.88) (br1 s 0.03 7)
+                    (br1 s 1 0.94)    (br2 s 1.05 1.01) (br3 s 5 1.06)    (br1 s 1.82 0.18) (br2 s 0.88 1.06) (br1 s 1.91 6)    (br2 s 0.21 art)  (br3 s 9 15)
+                    (br1 s 1 0.94)    (br2 s 1.05 1.01) (br3 s 6 1.06)    (br1 s 1.82 0.18) (br2 s 0.88 1.06) (br1 s 0.31 art)  (br2 s 0.2 5)
+                    (br1 s 1.13 0.53) (br2 s 1 1.13)    (br1 s 1.88 0.12) (br1 s 0.25 0.12) (br1 s 0.06 0.88) (br1 s 0.03 2)
+                    (br1 s 1 0.94)    (br2 s 1.05 1.01) (br3 s 6 1.06)    (br1 s 1.82 0.18)
+                    (br2 s 0.88 1.06) (br1 s 1.91 1)    (br2 s 1.18 16)
+                    (br1 s 1.13 0.53) (br2 s 1 1.13)    (br1 s 1.88 0.12) (br1 s 0.25 0.12) (br1 s 0.06 0.88) (br1 s 0.03 2)
+                    (br1 s 1 0.94)    (br2 s 1.05 1.01) (br3 s 15 1.06)   ;**
+                    (br1 s 1.88 0.12) (br1 s 0.25 0.12) (br1 s 0.06 0.88) (br1 s 0.03 art) (br1 s 1.88 0.12) (br1 s 0.25 0.12) (br1 s 0.06 0.88) (br1 s 0.03 art) (br1 s 1.88 0.12) (br1 s 0.25 0.12) (br1 s 0.06 0.88) (br1 s 0.03 art) (br1 s 1.88 0.12) (br1 s 0.25 0.12) (br1 s 0.06 0.88) (br1 s 0.03 art) (br1 s 1.88 0.12) (br1 s 0.25 0.12) (br1 s 0.06 0.88) (br1 s 0.03 0)))
+            t)))
+
+(define pre-chorus-ver3
+  (lambda (t)
+    (let* ((sec 44100)
+          (br1 '(63 72 85)) ;c sharp
+          (br2 '(66 79 87)) ;d
+          (br3 '(72 85 93)) ;e
+          (s 0)
+          (art 0.2)
+          (loop (lambda (sc)
+                  (cond
+                    ((null? sc) 0)
+                    (else
+                      (let ((cmd (car sc)))
+                        (arp t (eval (car cmd)) (eval (cadr cmd)) (* sec (eval (caddr cmd))))
+                        (set! t (+ t (* (caddr cmd) sec) (* (eval (cadddr cmd)) sec)))
+                        (loop (cdr sc))))))))
+            (loop '((br1 s 1.13 0.53) (br2 s 1 3.8)       (br1 s 1 0.94)    (br2 s 1.05 2.01) (br3 s 3.2 4.06)  (br1 s 1.82 0.18) (br2 s 0.88 1.06) (br1 s 1.91 0.8)  (br2 s 0.27 3)
+                    (br1 s 0.23 art)  (br2 s 0.2 17)    (br1 s 1.13 0.53) (br2 s 1 art)     (br1 s 1.13 0.53) (br2 s 1 7)       (br1 s 1 0.94)    (br2 s 1.05 5)    (br3 s 3.2 1.06)  (br1 s 1.82 0.18) (br2 s 0.88 1.06) (br1 s 0.91 1)    (br2 s 1.18 24)
+                    (br1 s 1.13 0.53) (br2 s 1 art)     (br1 s 1.13 0.53) (br2 s 1 art)     (br1 s 1.13 0.53) (br2 s 1 1.13)    (br1 s 1.88 0.12) (br1 s 0.25 0.12) (br1 s 0.06 0.88) (br1 s 0.03 3)    (br1 s 1 0.94)    (br2 s 1.05 1.01) (br3 s 7 1.06)
+                    (br1 s 1.21 0.81)  (br2 s 0.64 9)    (br1 s 1.88 0.12) (br1 s 0.25 0.12) (br1 s 0.06 0.88) (br1 s 0.03 art)  (br1 s 1.88 0.12) (br1 s 0.25 0.12) (br1 s 0.06 0.88) (br1 s 0.03 art)  (br1 s 1.88 0.12) (br1 s 0.25 0.12) (br1 s 0.06 0.88) (br1 s 0.03 art) (br1 s 1.13 0.53) (br2 s 1 art) (br1 s 1.13 0.53) (br2 s 1 art) (br1 s 1.13 0.53) (br2 s 1 art) (br1 s 1.13 0.53) (br2 s 1 art) (br1 s 1.13 0.53) (br2 s 1 art) (br1 s 1.13 0.53) (br2 s 1 art)  (br1 s 1.13 13)
+                    (br1 s 1.13 0.53) (br2 s 1 3)    (br1 s 1.13 0.53) (br2 s 1 4)     (br1 s 1.13 0.53) (br2 s 1 1.13)    (br1 s 1.88 0.12) (br1 s 0.25 0.12) (br1 s 0.06 0.88) (br1 s 0.03 7)
+                    (br1 s 1 0.94)    (br2 s 1.05 1.01) (br3 s 5 1.06)    (br1 s 1.82 0.18) (br2 s 0.88 1.06) (br1 s 4.7 6)    (br2 s 0.21 art)  (br3 s 9 15)
+                    (br1 s 1 0.94)    (br2 s 1.05 1.01) (br3 s 6 1.06)    (br1 s 1.82 0.18) (br2 s 0.88 1.06) (br1 s 0.31 art)  (br2 s 0.2 5)
+                    (br1 s 1.13 0.53) (br2 s 1 1.13)    (br1 s 1.88 0.12) (br1 s 0.25 0.12) (br1 s 0.06 0.88) (br1 s 0.03 2)
+                    (br1 s 1 0.94)    (br2 s 1.05 1.01) (br3 s 6 1.06)    (br1 s 1.82 0.18)
+                    (br2 s 0.88 1.06) (br1 s 1.91 1)    (br2 s 1.18 16)
+                    (br1 s 1.13 0.53) (br2 s 1 1.13)    (br1 s 1.88 0.12) (br1 s 0.25 0.12) (br1 s 0.06 0.88) (br1 s 0.03 2)
+                    (br1 s 1 0.94)    (br2 s 1.05 1.01) (br3 s 15 13.06)   ;**
+                    (br1 s 1.88 0.12) (br1 s 0.25 0.12) (br1 s 0.06 0.88) (br1 s 0.03 art)    (br1 s 1.88 0.12) (br1 s 0.25 0.12) (br1 s 0.06 0.88) (br1 s 0.03 art)   (br1 s 1.88 0.12) (br1 s 0.25 0.12) (br1 s 0.06 0.88) (br1 s 0.03 art)   (br1 s 1.88 0.12) (br1 s 0.25 0.12) (br1 s 0.06 0.88) (br1 s 0.03 art)   (br1 s 1.88 0.12) (br1 s 0.25 0.12) (br1 s 0.06 0.88) (br1 s 0.03 art)   (br1 s 1.88 0.12) (br1 s 0.25 0.12) (br1 s 0.06 0.88) (br1 s 0.03 art)    (br1 s 1.88 0.12) (br1 s 0.25 0.12) (br1 s 0.06 0.88) (br1 s 0.03 art)    (br1 s 1.88 0.12) (br1 s 0.25 0.12) (br1 s 0.06 0.88) (br1 s 0.03 art)    (br1 s 1.88 0.12) (br1 s 0.25 0.12) (br1 s 0.06 0.88) (br1 s 0.03 art)    (br1 s 1.88 0.12) (br1 s 0.25 0.12) (br1 s 0.06 0.88) (br1 s 0.03 art)    (br1 s 1.88 0.12) (br1 s 0.25 0.12) (br1 s 0.06 0.88) (br1 s 0.03 art)    (br1 s 1.88 0.12) (br1 s 0.25 0.12) (br1 s 0.06 0.88) (br1 s 0.03 art)    (br1 s 1.88 0.12) (br1 s 0.25 0.12) (br1 s 0.06 0.88) (br1 s 0.03 art)   (br1 s 1.88 0.12) (br1 s 0.25 0.12) (br1 s 0.06 0.88) (br1 s 0.03 art)    (br1 s 1.88 0.12) (br1 s 0.25 0.12) (br1 s 0.06 0.88) (br1 s 0.03 0)))
+            t)))
+
+
+
+
+
+; pre-chorus2
+
+(define pre-chorus2
+  (lambda (t)
+    (let* ((sec 44100)
+          (br1 '(63 72 85)) ;c sharp
+          (br2 '(66 79 87)) ;d
+          (br3 '(72 85 93)) ;e
+          (s 0)
+          (art 0.2)
+          (loop (lambda (sc)
+                  (cond
+                    ((null? sc) 0)
+                    (else
+                      (let ((cmd (car sc)))
+                        (arp t (eval (car cmd)) (eval (cadr cmd)) (* sec (eval (caddr cmd))))
+                        (set! t (+ t (* (caddr cmd) sec) (* (eval (cadddr cmd)) sec)))
+                        (loop (cdr sc))))))))
+            (set! t (+ t (* 16 *second*)))
+            (loop '((br1 s 1.88 0.12) (br1 s 0.25 0.12) (br1 s 0.06 0.88) (br1 s 0.03 art)    (br1 s 1.88 0.12) (br1 s 0.25 0.12) (br1 s 0.06 0.88) (br1 s 0.03 art)   (br1 s 1.88 0.12) (br1 s 0.25 0.12) (br1 s 0.06 0.88) (br1 s 0.03 art)   (br1 s 1.88 0.12) (br1 s 0.25 0.12) (br1 s 0.06 0.88) (br1 s 0.03 art)   (br1 s 1.88 0.12) (br1 s 0.25 0.12) (br1 s 0.06 0.88) (br1 s 0.03 art)   (br1 s 1.88 0.12) (br1 s 0.25 0.12) (br1 s 0.06 0.88) (br1 s 0.03 art)    (br1 s 1.88 0.12) (br1 s 0.25 0.12)   (br1 s 0.06 0.88) (br1 s 0.03 art)    (br1 s 1.88 0.12) (br1 s 0.25 0.12) (br1 s 0.06 0.88) (br1 s 0.03 art)    (br1 s 1.88 0.12) (br1 s 0.25 0.12) (br1 s 0.06 0.88) (br1 s 0.03 art)    (br1 s 1.88 0.12) (br1 s 0.25 0.12) (br1 s 0.06 0.88) (br1 s 0.03 art)    (br1 s 1.88 0.12) (br1 s 0.25 0.12) (br1 s 0.06 0.88) (br1 s 0.03 art)    (br1 s 1.88 0.12) (br1 s 0.25 0.12) (br1 s 0.06 0.88) (br1 s 0.03 art)    (br1 s 1.88 0.12) (br1 s 0.25 0.12) (br1 s 0.06 0.88) (br1 s 0.03 art)   (br1 s 1.88 0.12) (br1 s 0.25 0.12) (br1 s 0.06 0.88) (br1 s 0.03 art)    (br1 s 1.88 0.12) (br1 s 0.25 0.12) (br1 s 0.06 0.88) (br1 s 0.03 13)
+
+            (br1 s 1.88 0.12) (br1 s 0.25 0.12) (br1 s 0.06 0.88) (br1 s 0.03 art) (br1 s 1.88 0.12) (br1 s 0.25 0.12) (br1 s 0.06 0.88) (br1 s 0.03 art) (br1 s 1.88 0.12) (br1 s 0.25 0.12) (br1 s 0.06 0.88) (br1 s 0.03 art) (br1 s 1.88 0.12) (br1 s 0.25 0.12) (br1 s 0.06 0.88) (br1 s 0.03 art) (br1 s 1.88 0.12) (br1 s 0.25 0.12) (br1 s 0.06 0.88) (br1 s 0.03 art) (br1 s 1.88 0.12) (br1 s 0.25 0.12) (br1 s 0.06 0.88) (br1 s 0.03 art) (br1 s 1.88 0.12) (br1 s 0.25 0.12) (br1 s 0.06 0.88) (br1 s 0.03 20)
+
+            (br1 s 1.88 0.12) (br1 s 0.25 0.12) (br1 s 0.06 0.88) (br1 s 0.03 art) (br1 s 1.88 0.12) (br1 s 0.25 0.12) (br1 s 0.06 0.88) (br1 s 0.03 art) (br1 s 1.88 0.12) (br1 s 0.25 0.12) (br1 s 0.06 0.88) (br1 s 0.03 art) (br1 s 1.88 0.12) (br1 s 0.25 0.12) (br1 s 0.06 0.88) (br1 s 0.03 art) (br1 s 1.88 0.12) (br1 s 0.25 0.12) (br1 s 0.06 0.88) (br1 s 0.03 art) (br1 s 1.88 0.12) (br1 s 0.25 0.12) (br1 s 0.06 0.88) (br1 s 0.03 art) (br1 s 1.88 0.12) (br1 s 0.25 0.12) (br1 s 0.06 0.88) (br1 s 0.03 art) (br1 s 1.88 0.12) (br1 s 0.25 0.12) (br1 s 0.06 0.88) (br1 s 0.03 art) (br1 s 1.88 0.12) (br1 s 0.25 0.12) (br1 s 0.06 0.88) (br1 s 0.03 4.7)
+
+            (br1 s 1.88 0.12) (br1 s 0.25 0.12) (br1 s 0.06 0.88) (br1 s 0.03 art) (br1 s 1.88 0.12) (br1 s 0.25 0.12) (br1 s 0.06 0.88) (br1 s 0.03 art) (br1 s 1.88 0.12) (br1 s 0.25 0.12) (br1 s 0.06 0.88) (br1 s 0.03 17)
+
+            (br1 s 1.88 0.12) (br1 s 0.25 0.12) (br1 s 0.06 0.88) (br1 s 0.03 art) (br1 s 1.88 0.12) (br1 s 0.25 0.12) (br1 s 0.06 0.88) (br1 s 0.03 art) (br1 s 1.88 0.12) (br1 s 0.25 0.12) (br1 s 0.06 0.88) (br1 s 0.03 art) (br1 s 1.88 0.12) (br1 s 0.25 0.12) (br1 s 0.06 0.88) (br1 s 0.03 art) (br1 s 1.88 0.12) (br1 s 0.25 0.12) (br1 s 0.06 0.88) (br1 s 0.03 9)
+
+            (br1 s 1.88 0.12) (br1 s 0.25 0.12) (br1 s 0.06 0.88) (br1 s 0.03 art) (br1 s 1.88 0.12) (br1 s 0.25 0.12) (br1 s 0.06 0.88) (br1 s 0.03 art) (br1 s 1.88 0.12) (br1 s 0.25 0.12) (br1 s 0.06 0.88) (br1 s 0.03 art) (br1 s 1.88 0.12) (br1 s 0.25 0.12) (br1 s 0.06 0.88) (br1 s 0.03 art) (br1 s 1.88 0.12) (br1 s 0.25 0.12) (br1 s 0.06 0.88) (br1 s 0.03 art) (br1 s 1.88 0.12) (br1 s 0.25 0.12) (br1 s 0.06 0.88) (br1 s 0.03 art) (br1 s 1.88 0.12) (br1 s 0.25 0.12) (br1 s 0.06 0.88) (br1 s 0.03 art) (br1 s 1.88 0.12) (br1 s 0.25 0.12) (br1 s 0.06 0.88) (br1 s 0.03 art) (br1 s 1.88 0.12) (br1 s 0.25 0.12) (br1 s 0.06 0.88) (br1 s 0.03 art) (br1 s 1.88 0.12) (br1 s 0.25 0.12) (br1 s 0.06 0.88) (br1 s 0.03 art) (br1 s 1.88 0.12) (br1 s 0.25 0.12) (br1 s 0.06 0.88) (br1 s 0.03 art) (br1 s 1.88 0.12) (br1 s 0.25 0.12) (br1 s 0.06 0.88) (br1 s 0.03 art) (br1 s 1.88 0.12) (br1 s 0.25 0.12) (br1 s 0.06 0.88) (br1 s 0.03 art) (br1 s 1.88 0.12) (br1 s 0.25 0.12) (br1 s 0.06 0.88) (br1 s 0.03 art) (br1 s 1.88 0.12) (br1 s 0.25 0.12) (br1 s 0.06 0.88) (br1 s 0.03 art) (br1 s 1.88 0.12) (br1 s 0.25 0.12) (br1 s 0.06 0.88) (br1 s 0.03 art) (br1 s 1.88 0.12) (br1 s 0.25 0.12) (br1 s 0.06 0.88) (br1 s 0.03 art) (br1 s 1.88 0.12) (br1 s 0.25 0.12) (br1 s 0.06 0.88) (br1 s 0.03 art) (br1 s 1.88 0.12) (br1 s 0.25 0.12) (br1 s 0.06 0.88) (br1 s 0.03 art) (br1 s 1.88 0.12) (br1 s 0.25 0.12) (br1 s 0.06 0.88) (br1 s 0.03 art) (br1 s 1.88 0.12) (br1 s 0.25 0.12) (br1 s 0.06 0.88) (br1 s 0.03 art) (br1 s 1.88 0.12) (br1 s 0.25 0.12) (br1 s 0.06 0.88) (br1 s 0.03 art) (br1 s 1.88 0.12) (br1 s 0.25 0.12) (br1 s 0.06 0.88) (br1 s 0.03 art) (br1 s 1.88 0.12) (br1 s 0.25 0.12) (br1 s 0.06 0.88) (br1 s 0.03 art) (br1 s 1.88 0.12) (br1 s 0.25 0.12) (br1 s 0.06 0.88) (br1 s 0.03 art) (br1 s 1.88 0.12) (br1 s 0.25 0.12) (br1 s 0.06 0.88) (br1 s 0.03 art) (br1 s 1.88 0.12) (br1 s 0.25 0.12) (br1 s 0.06 0.88) (br1 s 0.03 art) (br1 s 1.88 0.12) (br1 s 0.25 0.12) (br1 s 0.06 0.88) (br1 s 0.03 art) (br1 s 1.88 0.12) (br1 s 0.25 0.12) (br1 s 0.06 0.88) (br1 s 0.03 art) (br1 s 1.88 0.12) (br1 s 0.25 0.12) (br1 s 0.06 0.88) (br1 s 0.03 art) (br1 s 1.88 0.12) (br1 s 0.25 0.12) (br1 s 0.06 0.88) (br1 s 0.03 art) (br1 s 1.88 0.12) (br1 s 0.25 0.12) (br1 s 0.06 0.88) (br1 s 0.03 0)))
+            t)))
+
+
+
+
+; probability-shuffle in looped arpeggio
+
+(define stop-shuffle
+  (lambda ()
+    (set! shuffling #f)))
+
+(define shuffle-chord
+  (lambda (t)
+    (cond
+      ((equal? shuffling #t)
+        (recreate_subpool 0.05)
+        (add_aux 0.2)
+        (pll t endpool)
+        (callback (+ t 1000) 'shuffle-chord (+ t (* (length endpool) (delta)))))
+      (else #f))))
+
+(define recreate_subpool
+  (lambda (prob)
+    (if (< (random) prob)
+      (begin
+        (set! subpool (change_element subpool (random '(0 1 2)) (random pool)))
+        (print "\nreset root chord: " subpool))
+      (if (check_twins subpool)
+        (recreate_subpool 1.0)))
+    (if (check_twins subpool)
+      (recreate_subpool 1.0)
+      1)))
+
+(define add_aux
+  (lambda (prob)
+    (if (< (random) prob)
+      (let ((pr (random)))
+        (cond
+          ((< pr 0.1) (set! endpool (insert subpool (random '(0 1 2 3)) (random (remove pool subpool)))))
+          ((and (>= pr 0.1) (< pr 0.2)) (set! endpool (insert subpool (random '(0 1 2 3)) (random (remove pool subpool))))
+                                        (set! endpool (insert endpool (random '(0 1 2 3)) (random (remove pool subpool)))))
+          ((and (>= pr 0.2) (< pr 0.3)) (set! endpool (insert subpool (random '(0 1 2 3)) (random (remove pool subpool))))
+                                        (set! endpool (insert endpool (random '(0 1 2 3)) (random (remove pool subpool))))
+                                        (set! endpool (insert endpool (random '(0 1 2 3)) (random (remove pool subpool)))))
+          (else
+            (set! endpool subpool)))
+        (print " | endpool: " endpool)))
+    (if (check_twins endpool)
+      (add_aux 1.0))))
+
+(define insert
+  (lambda (l i a)
+    (cond
+      ((and (null? l) (zero? i)) (cons a '()))
+      ((null? l) '())
+      ((zero? i) (cons a l))
+      (else
+        (cons (car l) (insert (cdr l) (- i 1) a))))))
+
+(define remove
+  (lambda (l al)
+    (cond
+      ((null? al) l)
+      (else
+        (remove (rember l (car al)) (cdr al))))))
+
+(define rember
+  (lambda (l a)
+    (cond
+      ((null? l) '())
+      ((equal? (car l) a) (rember (cdr l) a))
+      (else
+        (cons (car l) (rember (cdr l) a))))))
+
+(define change_element
+  (lambda (l i sub)
+    (cond
+      ((null? l) 0)
+      ((zero? i) (cons sub (cdr l)))
+      (else
+        (cons (car l) (change_element (cdr l) (- i 1) sub))))))
+
+(define check_twins
+  (lambda (l)
+    (cond
+      ((null? l) #f)
+      ((member? (cdr l) (car l)) #t)
+      (else
+        (check_twins (cdr l))))))
+
+(define member?
+  (lambda (l a)
+    (cond
+      ((null? l) #f)
+      ((equal? (car l) a) #t)
+      (else
+        (member? (cdr l) a)))))
+
+(define pll
+  (lambda (t l)
+    (cond
+      ((null? l) t)
+      (else
+        (pln t (car l) (dur_ind))
+        (callback (+ t 1000) 'pll (+ t (delta)) (cdr l))))))
+
+
+; algorithmic model for chorus 1 7
+
+(define duration-factor (lambda () 0.6))
+
+(define plchord-dur
+  (lambda (t l d)
+    (cond
+      ((null? l) 0)
+      (else
+        (pln t (car l) (* d (duration-factor)))
+        (plchord-dur t (cdr l) d)))))
+
+(define plchord-rep
+  (lambda (t l n)
+    (cond
+      ((zero? n) t)
+      (else
+        (plchord-dur t l (durlist #t))
+        (plchord-rep (+ t (durlist #f)) l (- n 1))))))
+
+(define bpmtoedur
+  (lambda (bpm)
+    (/ (* 60 *second*) (* 2 bpm))))
+
+(define chord-counter
+  (lambda (ldur)
+    (lambda (p)
+      (if (null? ldur)
+        0)
+      (if (equal? p #f)
+        (bpmtoedur (car ldur))
+        (let ((r (car ldur)))
+          (set! ldur (cdr ldur))
+          (bpmtoedur r))))))
+
+(define durlist (lambda () '()))
+
+(define generate-durlist
+  (lambda (s i l)
+    (cond
+      ((null? (cdr l)) '())
+      ((zero? i) '())
+      (else
+        (if (> s (car (car (cdr l))))
+          (set! l (cdr l)))
+        (let ((a (car (car l)))
+             (b (car (car (cdr l))))
+             (c (car (cdr (car l))))
+             (d (car (cdr (car (cdr l))))))
+        (cons (* 1.0 (+ c (* (/ (- d c) (- b a)) (- s a)))) (generate-durlist (+ s 1) (- i 1) l)))))))
+
+(define p3-ver1
+  (lambda (t)
+    (set! durlist (chord-counter (generate-durlist 0 81 '((0 75) (15 75) (20 50) (24 50) (32 120) (44 120) (61 75) (80 75)))))
+    (let* ((c1 '(73 82 94)) ;e minor
+           (c2 '(77 88 98)) ;f major
+           (c3 '(82 94 103)) ;g major
+           (c4 '(88 98 109)) ;a minor
+           (c5 '(58 67 79)) ;b minor
+           (c6 '(72 82 81 93 108 107))
+           (loop (lambda (sc)
+                   (cond
+                     ((null? sc) 0)
+                     (else
+                       (set! t (plchord-rep t (eval (car (car sc))) (eval (car (cdr (car sc))))))
+                       (loop (cdr sc)))))))
+       (loop '((c1 8) (c2 8) (c3 3) (c4 5) (c1 8) (c5 3) (c1 5) (c2 8) (c3 3) (c4 5) (c1 8) (c3 8) (c4 8)))
+       (let ((durfinalis (/ (* 60 *second*) (/ 75 4))))
+       (plchord-dur t c6 durfinalis)
+         (+ t durfinalis)))))
+
+
+
+; meditative chord
+
+
+(define medpool '(78 87 99 79 88 100))
+(define rootpool (78 88 100))
+(define addpool '())
+(define medloop 1)
+
+
+(define start-meditation
+  (lambda (t d)
+    ;(rlnt t 87)
+    ;(rlnt t 99)
+    ;(rlnt t 79)
+    (set! medloop 1)
+    (set! medpool '(78 87 99 79 88 100))
+    (set! rootpool '(78 88 100))
+    ;(meditation t d)
+    (callback (+ t (* 20 *second*)) 'aux-loop)
+    (callback (+ t (* 35 *second*)) 'aux-loop)
+    (callback (+ t (* 40 *second*)) 'mod-loop)
+    (callback (+ t d) 'stop-loops)
+    (stop-med-chord (+ t d))
+    (+ t d)))
+
+
+(define stop-loops
+  (lambda ()
+    (set! medloop 0)))
+
+(define stop-med-chord
+  (lambda (t)
+    (rlntl t '(78 87 99 79 88 100))))
+
+
+(define release-block
+  (lambda (t s e)
+    (cond
+      ((> s e) 0)
+      (else
+        (rlnt t s)
+        (release-block (+ t 1) (+ s 1) e)))))
+
+
+
+(define panic
+  (lambda ()
+    (release-block (+ (now) 5000) 1 138)))
+
+
+
+(define rand-pick
+  (lambda (l n)
+    (cond
+      ((zero? n) '())
+      (else
+        (let ((a (random l)))
+          (set! l (rember l a))
+          (cons a (rand-pick l (- n 1))))))))
+
+
+;(define meditation
+;  (lambda (t d)
+;    (callback (+ t d) 'panic)
+;    (set! rootpool (rand-pick medpool 3))
+;    (prct t rootpool)))
+
+(define mod-rootpool
+  (lambda ()
+    (let ((a (random (remove (remove medpool rootpool) addpool)))
+          (i (random '(1 2 3))))
+      (rlnt (+ (now) (rand-range 10000 30000)) (nth rootpool i))
+      (prn a)
+      (set! rootpool (replace rootpool a i))
+      (print " | modified root: " rootpool))))
+
+(define mod-loop
+  (lambda ()
+    (cond ((= medloop 0) 0)
+          (else
+            (mod-rootpool)
+            (callback (+ (now) (rand-range (* 20 *second*) (* 30 *second*))) 'mod-loop)))))
+
+(define aux-loop
+  (lambda ()
+    (cond ((= medloop 0) 0)
+          (else
+            (add-aux-note)
+            (callback (+ (now) (rand-range (* 40 *second*) (* 50 *second*))) 'aux-loop)))))
+
+(define add-aux-note
+  (lambda ()
+    (let ((a (random (remove (remove medpool rootpool) addpool)))
+          (d (rand-range (* 10 *second*) (* 25 *second*))))
+      (pln (now) a d)
+      (set! addpool (appenda addpool a))
+      (callback (+ (now) d) 'remove-aux-note a)
+      (print " | addlist: " addpool))))
+
+(define remove-aux-note
+  (lambda (a)
+    (set! addpool (removea addpool a))))
+
+(define removea
+  (lambda (l a)
+    (cond
+      ((null? l) '())
+      ((equal? (car l) a) (cdr l))
+      (else
+        (cons (car l) (removea (cdr l) a))))))
+
+(define appenda
+  (lambda (l a)
+    (cond
+      ((null? l) (cons a '()))
+      (else
+        (cons (car l) (appenda (cdr l) a))))))
+
+
+
+(define nth
+  (lambda (l i)
+    (cond
+      ((= i 1) (car l))
+      (else
+        (nth (cdr l) (- i 1))))))
+
+(define replace
+  (lambda (l a i)
+    (cond
+      ((null? l) '())
+      ((= i 1) (cons a (cdr l)))
+      (else
+        (cons (car l) (replace (cdr l) a (- i 1)))))))
+
+(define rand-range
+  (lambda (b t)
+    (+ b (* (random) (- t b)))))
+
+(define prct
+  (lambda (t l)
+    (cond
+      ((null? l) 0)
+      (else
+        (prnt t (car l))
+        (prct t (cdr l))))))
+
+
+
+; chorus 1 new ver - with humanizer
+
+(define play-chord
+  (lambda (t c d h)
+    (cond
+      ((null? c) 0)
+      (else
+        (cond
+          ((= h -1)
+            (pln t (car c) (* d (rand-range 0.70 0.82)))
+            (play-chord (+ t (rand-range 1 1500)) (cdr c) d h))
+          (else
+            (pln t (car c) (* d h))
+            (play-chord t (cdr c) d h)))))))
+
+(define add-mistake
+  (lambda (t c d h)
+    (let ((r (random)))
+      (cond
+        ((not (= h -1)) 0)
+        ((< r 0.02) (pln t (+ (random c) 1) (rand-range 2000 5000)))
+        ((and (< r 0.04) (> r 0.02)) (pln t (- (random c) 1) (rand-range 2000 5000)))
+        (else 0)))))
+
+
+(define chord-repeater
+  (lambda (t c n d h)
+    (cond
+      ((zero? n) t)
+      (else
+        (play-chord t c (durlist #f) h)
+        (add-mistake t c d h)
+        (cond
+          ((= h -1) (chord-repeater (+ t (+ (durlist #t) (rand-range -1000 1000))) c (- n 1) (durlist #f) h))
+          (else
+            (chord-repeater (+ t (durlist #t)) c (- n 1) (durlist #f) h)))))))
+
+
+(define durlist (lambda () 0))
+
+(define chorus-1-new-ver
+  (lambda (t)
+    (let* ((c1 '(79 88 100)) ;'(73 82 94)) ;e minor
+           (c2 '(82 94 103)) ;'(77 88 98)) ;f major
+           (c3 '(88 100 109)) ;'(82 94 103)) ;g major
+           (c4 '(94 103 115)) ;'(88 98 109)) ;a minor
+           (c5 '(64 73 85)) ;'(58 67 79)) ;b minor
+           (c6 '(78 88 87 99 114 113)) ;'(72 82 81 93 108 107))
+           (h -1)
+           (m 0.5)
+           (loop (lambda (sc)
+                   (cond
+                     ((null? sc) 0)
+                     (else
+                       (set! t (chord-repeater t (eval (car (car sc))) (eval (car (cdr (car sc)))) (bpmtoedur 75) (eval (car (cdr (cdr (car sc)))))))
+                       (loop (cdr sc)))))))
+       (loop '((c1 8 h) (c2 8 h) (c3 3 h) (c4 5 h)
+               (c1 16 h) (c2 8 h) (c3 3 h) (c4 1 h) (c3 2 m) (c4 1 m)
+               (c4 4 h) (c1 8 h) (c5 3 m) (c1 1 m) (c5 2 m) (c1 5 m) (c2 8 h)
+               (c3 3 h) (c4 5 h) (c1 8 h) (c3 8 m) (c4 8 m)))
+       (play-chord t c6 (* 5.8 *second*) 1)
+       (set! t (+ t (* (+ 5.8 9) *second*)))
+       (loop '((c3 8 m) (c4 5 m)))
+       (set! t (+ t (* 3 (bpmtoedur 75)) (* 16 *second*)))
+       (loop '((c4 3 m)))
+       (play-chord t c6 (* 7 *second*) 1)
+       (set! t (+ t (* 18 *second*)))
+       (play-chord t c6 (* 0.31 *second*) 1)
+       (set! t (+ t (* 0.51 *second*)))
+       (play-chord t c6 (* 3 *second*) 1)
+       (set! t (+ t (* (+ 23 3) *second*)))
+       (play-chord t c6 (* 12 *second*) 1)
+       (set! t (+ t (* 12 *second*)))
+       t)))
+
+
+(define harp
+  (lambda (t l s d)
+    (harploop t l (length l) (* s (length l)) d)))
+
+(define harploop
+  (lambda (t l len da d)
+    (cond
+      ((null? l) 0)
+      ((zero? len) 0)
+      (else
+        (pln t (car l) d)
+        (cond
+          ((= len 6) (harploop (+ t (* 0.3 da)) (cdr l) (- len 1) da (- d (* 0.3 da))))
+          ((= len 5) (harploop (+ t (* 0.2 da)) (cdr l) (- len 1) da (- d (* 0.2 da))))
+          ((= len 4) (harploop (+ t (* 0.2 da)) (cdr l) (- len 1) da (- d (* 0.2 da))))
+          ((= len 3) (harploop (+ t (* 0.1 da)) (cdr l) (- len 1) da (- d (* 0.1 da))))
+          ((= len 2) (harploop (+ t (* 0.1 da)) (cdr l) (- len 1) da (- d (* 0.1 da))))
+          ((= len 1) (harploop (+ t (* 0.1 da)) (cdr l) (- len 1) da (- d (* 0.1 da))))
+          (else 0))))))
+
+
+(define plc
+  (lambda (t l d)
+    (cond
+      ((null? l) 0)
+      (else
+        (pln t (car l) d)
+        (plc t (cdr l) d)))))
+
+(define chorus-1-new-ver-agogic
+  (lambda (t)
+    (set! durlist (chord-counter (generate-durlist 0 151 '((0 70) (20 75) (24 73) (40 75) (151 75)))))
+    (let* ((c1 '(79 88 100)) ;'(73 82 94)) ;e minor
+           (c2 '(82 94 103)) ;'(77 88 98)) ;f major
+           (c3 '(88 100 109)) ;'(82 94 103)) ;g major
+           (c4 '(94 103 115)) ;'(88 98 109)) ;a minor
+           (c5 '(64 73 85)) ;'(58 67 79)) ;b minor
+           (c6 '(78 87 88 99 114 122)) ;'(72 82 81 93 108 107))
+           (c7 '(61 70 78 87)) ;a#
+           (c8 '(63 72 83)) ;b
+           (c9 '(57 68 78 83)) ;a
+           (c10 '(64 73 79 88)) ;b
+           (c11 '(51 63 72 78)) ;g
+           (vs 22000)
+           (s 10000)
+           (n 8000)
+           (f 5000)
+           (vf 2500)
+           (h -1)
+           (m 0.5)
+           (vcoda 85)
+           (loop (lambda (sc)
+                   (cond
+                     ((null? sc) 0)
+                     (else
+                       (set! t (chord-repeater t (eval (car (car sc))) (eval (car (cdr (car sc)))) (bpmtoedur 75) (eval (car (cdr (cdr (car sc)))))))
+                       (loop (cdr sc)))))))
+       (loop '((c1 8 h) (c2 8 h) (c3 3 h) (c4 5 h)
+               (c1 16 h) (c2 8 h) (c3 3 h) (c4 1 h) (c3 2 m) (c4 1 m)
+               (c4 4 h) (c1 8 h) (c5 3 m) (c1 1 m) (c5 2 m) (c1 5 m) (c2 8 h)
+               (c3 3 h) (c4 5 h) (c1 8 h) (c3 8 m) (c4 8 m)))
+       (harp t c6 s (* 5.8 *second*))
+       (set! t (+ t (* (+ 5.8 9) *second*)))
+       (loop '((c3 8 m) (c4 5 m)))
+       (set! t (+ t (* 3 (bpmtoedur 75)) (* 16 *second*)))
+       (loop '((c4 3 m)))
+       (arp t c6 f (* 7 *second*))
+       (set! t (+ t (* 18 *second*)))
+       (arp t c6 vf (* 0.31 *second*))
+       (set! t (+ t (* 0.51 *second*)))
+       (harp t c6 f (* 3 *second*))
+       (set! t (+ t (* (+ 23 3) *second*)))
+       (harp t c6 vs (* 12 *second*))
+       (set! t (+ t (* (+ 12 8) *second*)))
+       (loop '((c3 8 m) (c4 8 m)))
+       (arp t c6 vf (* 7.4 *second*))
+       (set! t (+ t (* (+ 7.4 4) *second*)))
+       (set! t (+ t (bpmtoedur vcoda)))
+       (plc t c7 (bpmtoedur vcoda))
+       (set! t (+ t (* (bpmtoedur vcoda) 2)))
+       (plc t c8 (* (bpmtoedur vcoda) 5))
+       (set! t (+ t (* (bpmtoedur vcoda) 6)))
+       (plc t c9 (bpmtoedur vcoda))
+       (set! t (+ t (* (bpmtoedur vcoda) 2)))
+       (plc t c10 (* (bpmtoedur vcoda) 5))
+       (set! t (+ t (* (bpmtoedur vcoda) 5) (* 1.2 *second*)))
+       (arp t c6 f (* 5.8 *second*))
+       (set! t (+ t (* (+ 5.8 3) *second*)))
+       (plc (+ t (bpmtoedur vcoda)) c7 (bpmtoedur vcoda))
+       (plc (+ t (* (bpmtoedur vcoda) 3)) c8 (* (bpmtoedur vcoda) 5))
+       (plc (+ t (* (bpmtoedur vcoda) 9)) c9 (* (bpmtoedur vcoda) 1))
+       (plc (+ t (* (bpmtoedur vcoda) 11)) c10 (* (bpmtoedur vcoda) 5))
+       (plc (+ t (* (bpmtoedur vcoda) 16)) c9 (* (bpmtoedur vcoda) 0.8))
+       (plc (+ t (* (bpmtoedur vcoda) 17)) c9 (* (bpmtoedur vcoda) 1))
+       (plc (+ t (* (bpmtoedur vcoda) 19)) c11 (* (bpmtoedur vcoda) 9))
+       (plc (+ t (* (bpmtoedur vcoda) 33)) c7 (* (bpmtoedur vcoda) 1))
+       (plc (+ t (* (bpmtoedur vcoda) 35)) c8 (* (bpmtoedur vcoda) 5))
+       (plc (+ t (* (bpmtoedur vcoda) 41)) c9 (* (bpmtoedur vcoda) 1))
+       (plc (+ t (* (bpmtoedur vcoda) 43)) c10 (* (bpmtoedur vcoda) 1))
+       (set! t (+ t (* (bpmtoedur vcoda) 44)))
+       t)))
+
+
+
+; chorus 2
+
+
+(define chorus-2
+  (lambda (t)
+    (set! durlist (chord-counter (generate-durlist 0 513 '((0 75) (513 75)))))
+    (let* ((c1 '(79 88 100)) ;'(73 82 94)) ;e minor
+           (c2 '(82 94 103)) ;'(77 88 98)) ;f major
+           (c3 '(88 100 109)) ;'(82 94 103)) ;g major
+           (c4 '(94 103 115)) ;'(88 98 109)) ;a minor
+           (c5 '(64 73 85)) ;'(58 67 79)) ;b minor
+           (h -1)
+           (m 0.5)
+           (loop (lambda (sc)
+                   (cond
+                     ((null? sc) 0)
+                     (else
+                       (set! t (chord-repeater t (eval (car (car sc))) (eval (car (cdr (car sc)))) (bpmtoedur 75) (eval (car (cdr (cdr (car sc)))))))
+                       (loop (cdr sc)))))))
+       (loop '((c1 8 m) (c2 8 m) (c3 3 m) (c4 5 m) (c1 8 m) (c5 3 m) (c1 5 m) (c2 8 m) (c3 3 m) (c4 5 m) (c1 8 m)))
+       (loop '((c1 8 m) (c2 8 m) (c3 3 m) (c4 5 m) (c1 8 m) (c5 3 m) (c1 5 m) (c2 8 m) (c3 3 m) (c4 5 m) (c1 8 m)))
+       (loop '((c1 8 m) (c2 8 m) (c3 3 m) (c4 5 m) (c1 8 m) (c5 3 m) (c1 5 m) (c2 8 m) (c3 3 m) (c4 5 m) (c1 8 m)))
+       (loop '((c1 8 m) (c2 8 m) (c3 3 m) (c4 5 m) (c1 8 m) (c5 3 m) (c1 5 m) (c2 8 m) (c3 3 m) (c4 5 m) (c1 8 m)))
+       (loop '((c1 8 m) (c2 8 m) (c3 3 m) (c4 5 m) (c1 8 m) (c5 3 m) (c1 5 m) (c2 8 m) (c3 3 m) (c4 5 m) (c1 8 m)))
+       (loop '((c1 8 m) (c2 8 m) (c3 3 m) (c4 5 m) (c1 8 m) (c5 3 m) (c1 5 m) (c2 8 m) (c3 3 m) (c4 5 m) (c1 8 m)))
+       (loop '((c1 8 m) (c2 8 m) (c3 3 m) (c4 5 m) (c1 8 m) (c5 3 m) (c1 5 m) (c2 8 m) (c3 3 m) (c4 5 m) (c1 8 m)))
+       t)))
+
+
+
+
+;;; verse 3
+
+(define fill
+  (lambda (s e)
+    (cond
+      ((> s e) '())
+      (else
+        (cons s (fill (+ s 1) e))))))
+
+
+
+(define verse3
+  (lambda (t d)
+    (let* ((tinit t)
+           (rhcl (fill 72 106))
+           (lhcl (fill 43 71))
+           (rhc '(72 83 93 106))
+           (step 1)
+           (vel (bpmtoedur 75))
+           (lhcom '((begin (rlnt t 43) (rlnt t 52) (rlnt t 73) (rlnt t 64) (rlnt t 63) (rlnt t 51)) () () () (prnt t 73) () (prnt t 69) ()
+                    (begin (rlnt t 69) (rlnt t 73) (prnt t 72) (prnt t 64)) () () () (begin (rlnt t 64) (rlnt t 72) (prnt t 63)) () (prnt t 57) ()
+                    (begin (rlnt t 63) (rlnt t 57) (prnt t 51) (prnt t 63) (prnt t 64) (prnt t 73)) () () () (prnt t 52) () (begin (rlnt t 52) (prnt t 49)) ()
+                    (begin (rlnt t 49) (prnt t 52) (prnt t 43)) () () () () () () ()))
+           (rhloop (lambda (t)
+                     (cond
+                       ((> t (+ tinit d)) t)
+                       (else
+                         (plc t rhc (* vel 0.7))
+                         (eval (nth lhcom step))
+                         (if (>= step 32) (set! step 1) (set! step (+ step 1)))
+                         (rhloop (+ t vel)))))))
+        (rhloop t))))
+
+
+(define rlntl
+  (lambda (t l)
+    (cond
+      ((null? l) 0)
+      (else
+        (rlnt t (car l))
+        (rlntl t (cdr l))))))
+
+;(rlntl (now) '(73 69 72 64 63 57 51 63 64 52 49 52 53))
+
+(define verse3
+  (lambda (t d)
+    (let* ((tinit t)
+           (rhcl (fill 72 106))
+           (lhcl (fill 43 71))
+           (rhc '(72 83 93 106))
+           (probrh 0.0)
+           (probbroken 0.0)
+           (problh 0.0)
+           (probirr 0.0)
+           (step 1)
+           (art 6000)
+           (broken 0)
+           (brokenstep 3)
+           (vel (bpmtoedur 75))
+           (lhcom '((begin (rlnt (- t art) 43) (rlnt (- t art) 52) (rlnt (- t art) 73) (rlnt (- t art) 64) (rlnt (- t art) 63) (rlnt (- t art) 51)) () () () (prnt t 73) () (prnt t 69) ()
+                    (begin (rlnt (- t art) 69) (prnt t 72) (prnt t 64)) () () () (begin (rlnt (- t art) 64) (rlnt (- t art) 72) (prnt t 63)) () (prnt t 57) ()
+                    (begin (rlnt (- t art) 63) (rlnt (- t art) 57) (prnt t 51) (prnt t 63) (prnt t 64) ) () () () (prnt t 52) () (begin (rlnt (- t art) 52) (prnt t 49)) ()
+                    (begin (rlnt (- t art) 49) (prnt t 52) (prnt t 43)) () () () () () () ()))
+           (rhloop (lambda (t)
+                     (let ((tvel (if (< (random) probirr) (* vel (random '(0.3 .35 .8 1.0 1.2 1.8 2.9))) vel)))
+                       (cond
+                         ((> t (+ tinit d)) t)
+                         ((null? (remove rhcl rhc)) t)
+                         (else
+                           (plc t rhc (* tvel 0.7))
+                           (eval (nth lhcom step))
+                           (cond ((and (> t (+ tinit (* 26 *second*))) (< t (+ tinit (* 27 *second*)))) (set! probbroken 0.05))
+                                 ((and (> t (+ tinit (* 40 *second*))) (< t (+ tinit (* 41 *second*)))) (set! probrh 0.06))
+                                 ((and (> t (+ tinit (* 45 *second*))) (< t (+ tinit (* 46 *second*)))) (set! problh 0.18))
+                                 ((and (> t (+ tinit (* 70 *second*))) (< t (+ tinit (* 71 *second*)))) (set! probrh 0.1))
+                                 ((and (> t (+ tinit (* 80 *second*))) (< t (+ tinit (* 81 *second*)))) (set! problh 0.2))
+                                 ((and (> t (+ tinit (* 60 *second*))) (< t (+ tinit (* 61 *second*)))) (set! probirr 0.3))
+                                 ((and (> t (+ tinit (* 90 *second*))) (< t (+ tinit (* 91 *second*)))) (set! probirr 0.8))
+                                 ((and (> t (+ tinit (* 100 *second*))) (< t (+ tinit (* 101 *second*)))) (set! probirr 1.0))
+                                 ((and (> t (+ tinit (* 120 *second*))) (< t (+ tinit (* 121 *second*)))) (set! probrh 0.35))
+                                 ((and (> t (+ tinit (* 120 *second*))) (< t (+ tinit (* 121 *second*)))) (set! problh 0.8))
+                                 (else 0))
+                           (if (< (random) problh) (prnt t (random lhcl)))
+                           (if (< (random) probrh) (set! rhc (appenda rhc (random (remove rhcl rhc)))))
+                           (if (and (< (random) probbroken) (= broken 0)) (begin (set! broken (random '(2 3 4 5))) (set! brokenstep (random '(2 3 4 5)))))
+                           (if (and (> broken 0) (> step 6)) (begin (set! step (- step brokenstep)) (set! broken (- broken 1)) (rlntl (- t art) '(73 69 72 64 63 57 51 63 64 52 49 52 53))))
+                           (if (>= step 32) (set! step 1) (set! step (+ step 1)))
+                           (rhloop (+ t tvel)))))))
+            (reloop (lambda (t l)
+                      (cond
+                        ((null? l) t)
+                        (else
+                          (let ((sel (random l)))
+                            (rlnt t sel)
+                            (set! l (removea l sel))
+                            (reloop (+ t (rand-range 15000 60000)) l)))))))
+;        (set! t (rhloop t))
+;        (rlntl t rhcl)
+;        (rlntl t lhcl)
+;        (set! t (+ t (* 2 *second*)))
+          (prct t lhcl)
+          (prct t rhcl)
+          (reloop (+ t (* 2 *second*)) (remove rhcl '(78 88 100)))
+          (reloop (+ t (* 2 *second*)) lhcl)
+        t)))

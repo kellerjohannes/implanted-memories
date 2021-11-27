@@ -1,0 +1,761 @@
+(bind-type notename <String*,i64,String*>)
+
+;(bind-func make_notename
+;  (lambda (root:String* octave:i64 alteration:String*)
+;    (let ((n:notename* (zalloc)))
+;      (tset! n 0 root)
+;      (tset! n 1 octave)
+;      (tset! n 2 alteration)
+;      n)))
+
+(bind-func make_notename
+  (lambda (root:String* octave:i64 alteration:String*)
+    (notename:[notename*,String*,i64,String*]* root octave alteration)))
+
+(bind-func root
+  (lambda (n:notename)
+    (tref n 0)))
+
+(bind-func octave
+  (lambda (n:notename)
+    ;(printf "octave request received: %d" (tref n 1))
+    (tref n 1)))
+
+(bind-func alteration
+  (lambda (n:notename)
+    (tref n 2)))
+
+
+(bind-type note <i64,i64,i64,double,notename>)
+
+(bind-func make_note
+  (lambda (measureStart:i64 start:i64 dur:i64 factor:double name:notename)
+    (note:[note*,i64,i64,i64,double,notename]* measureStart start dur factor name)))
+;    (let ((n:note* (zalloc)))
+;      (tfill! n measureStart start dur factor name)
+;      n)))
+
+(bind-func measureStart
+  (lambda (n:note)
+    (tref n 0)))
+
+(bind-func start
+  (lambda (n:note)
+    (tref n 1)))
+
+(bind-func duration
+  (lambda (n:note)
+    (tref n 2)))
+
+(bind-func factor
+  (lambda (n:note)
+    (tref n 3)))
+
+(bind-func name
+  (lambda (n:note)
+    (tref n 4)))
+
+
+(bind-type score <i64,note*>)
+
+(bind-func make_score
+  (lambda ()
+    (let ((c:i64 1)
+          (s:score* (zalloc))
+          (n:note* (zalloc))
+          (nn:notename* (zalloc)))
+      (tset! s 0 c)
+      (set! nn (make_notename (Str "C") 0 (Str "natural")))
+      (set! n (make_note 0 0 0 1.0 (pref nn 0)))
+      (tset! s 1 n)
+      s)))
+
+(bind-func length
+  (lambda (s:score*)
+    (tref s 0)))
+
+(bind-func data
+  (lambda (s:score*)
+    (tref s 1)))
+
+;(bind-func note
+;  (lambda (s:score index:i64)
+;    (cond
+;      (and (>= index 0) (< index (length s)) (pref (data s) index))
+;      (else
+;        (println "Index out of score range")
+;        (let ((n:note (zalloc))
+;              (nn:notename (zalloc)))
+;          (set! nn (make_notename (Str "C") 0 (Str "natural")))
+;          (set! n (make_note 0 0 0 1.0 (pref nn 0)))
+;          (pref n 0))))))
+
+(bind-func note
+  (lambda (s:score* index:i64)
+    (if (or (< index 0) (>= index (length s)))
+      (begin
+        (println "fatal: index out of score range")
+        (set! index 0)))
+    (pref (data s) index)))
+
+(bind-func set_note
+  (lambda (s:score* index:i64 n:note)
+    (pset! (data s) index n)))
+
+;(bind-func append_note
+;  (lambda (s:score* n:note*)
+;    (printf "\nreceived note to append: octave = %d" (octave (name n)))
+;    (let ((newbuf:note* (zalloc (+ (length s) 1)))
+;          (i 0))
+;      (dotimes (i (- (length s) 1))
+;        (pset! (tref-ptr s 1) i (note s i)))
+;      (pset! (tref-ptr s 1) (length s) n)
+;      (tset! s 0 (+ (length s) 1)))))
+
+(bind-func append_note
+  (lambda (s:score* n:note)
+    (let ((l:i64 (length s))
+          (tmp:note* (zalloc (+ 1 l)))
+          (i 0))
+      (dotimes (i l)
+        (pset! tmp i (note s i)))
+      (pset! tmp l n)
+      (tset! s 0 (+ l 1))
+      (tset! s 1 tmp))))
+
+(bind-func print
+  (lambda (s:score*)
+    (let ((i 0))
+      (printf "\n")
+      (dotimes (i (length s))
+        (printf "Note #%lld: measure Start %lld, start %lld, duration %lld, factor %f, root %s, octave %lld, alteration %s\n"
+                i
+                (measureStart (note s i))
+                (start (note s i))
+                (duration (note s i))
+                (factor (note s i))
+                (cstring (root (name (note s i))))
+                (octave (name (note s i)))
+                (cstring (alteration (name (note s i)))))))))
+
+(bind-func keynr
+  (lambda (n:notename)
+    ;(printf "\nreceived note to map: octave = %d" (octave n))
+    (let ((key:i64 0))
+      (cond
+        ((< (octave n) 2) (println "Note too low: " n) -1)
+        ((and (= (octave n) 6) (equal (root n) (Str "C")) (equal (alteration n) (Str "natural"))) 137)
+        ((and (= (octave n) 6) (equal (root n) (Str "C")) (equal (alteration n) (Str "quarter-sharp"))) 138)
+        ((> (octave n) 5) (println "Note too high: " n) -1)
+        ((and (= (octave n) 5) (equal (root n) (Str "B")) (equal (alteration n) (Str "sharp"))) (println "This note doesn't exist in the top octave: " n) -1)
+        ((and (equal (alteration n) (Str "three-quarters-sharp")) (or (equal (root n) (Str "E")) (equal (root n) (Str "B")))) (println "E and B can't be altered this way: " n) -1)
+        ((and (or (equal (alteration n) (Str "flat")) (equal (alteration n) (Str "quarter-flat"))) (or (equal (root n) (Str "C")) (equal (root n) (Str "F")))) (println "C and F can't be altered this way: " n) -1)
+        (else
+          (cond
+            ((> (octave n) 2)
+              (cond
+                ((equal (root n) (Str "C")) (set! key (+ 30 (* 36 (- (octave n) 3)))))
+                ((equal (root n) (Str "D")) (set! key (+ 36 (* 36 (- (octave n) 3)))))
+                ((equal (root n) (Str "E")) (set! key (+ 42 (* 36 (- (octave n) 3)))))
+                ((equal (root n) (Str "F")) (set! key (+ 45 (* 36 (- (octave n) 3)))))
+                ((equal (root n) (Str "G")) (set! key (+ 51 (* 36 (- (octave n) 3)))))
+                ((equal (root n) (Str "A")) (set! key (+ 57 (* 36 (- (octave n) 3)))))
+                ((equal (root n) (Str "B")) (set! key (+ 63 (* 36 (- (octave n) 3)))))
+                (else
+                  (println "Root key unknown")
+                  (set! key -1))))
+            ((and (= (octave n) 2) (equal (root n) (Str "F"))) (set! key 9))
+            ((and (= (octave n) 2) (equal (root n) (Str "G"))) (set! key 15))
+            ((and (= (octave n) 2) (equal (root n) (Str "A"))) (set! key 21))
+            ((and (= (octave n) 2) (equal (root n) (Str "B"))) (set! key 27))
+            (else
+              (set! key -1)))
+          (cond
+            ((equal (alteration n) (Str "natural")) key)
+            ((equal (alteration n) (Str "quarter-sharp")) (set! key (+ key 1)))
+            ((equal (alteration n) (Str "sharp")) (set! key (+ key 2)))
+            ((equal (alteration n) (Str "three-quarters-sharp")) (set! key (+ key 4)))
+            ((equal (alteration n) (Str "flat")) (set! key (- key 3)))
+            ((equal (alteration n) (Str "quarter-flat")) (set! key (- key 1)))
+            (else
+              (println "Alteration unknown: " n)
+              (set! key -1)))
+          (cond
+            ((and (= (octave n) 2) (equal (alteration n) (Str "natural")) (equal (root n) (Str "C"))) 1)
+            ((and (= (octave n) 2) (equal (alteration n) (Str "sharp")) (equal (root n) (Str "C"))) 2)
+            ((and (= (octave n) 2) (equal (alteration n) (Str "flat")) (equal (root n) (Str "D"))) 3)
+            ((and (= (octave n) 2) (equal (alteration n) (Str "natural")) (equal (root n) (Str "D"))) 4)
+            ((and (= (octave n) 2) (equal (alteration n) (Str "sharp")) (equal (root n) (Str "D"))) 5)
+            ((and (= (octave n) 2) (equal (alteration n) (Str "flat")) (equal (root n) (Str "E"))) 6)
+            ((and (= (octave n) 2) (equal (alteration n) (Str "natural")) (equal (root n) (Str "E"))) 7)
+            ((and (= (octave n) 2) (equal (alteration n) (Str "sharp")) (equal (root n) (Str "E"))) 8)
+            ((and (= (octave n) 2)
+                  (or (equal (root n) (Str "C")) (equal (root n) (Str "D")) (equal (root n) (Str "E")))
+                  (or (equal (alteration n) (Str "quarter-sharp")) (equal (alteration n) (Str "three-quarters-sharp")) (equal (alteration n) (Str "quarter-flat"))))
+              (println "This alteration is not available in the lowest octave: " n) -1)
+            (else
+              key)))))))
+
+
+
+(bind-func insert
+  (lambda (orig:String* pos:i64 str:String*)
+    (if (or (< pos 0) (> pos (length orig)))
+        (begin
+          (println "Error inserting string: index out of range")
+          (Str "null"))
+        (cat2 (substring orig 0 pos) (cat2 str (substring orig pos (- (length orig) 1)))))))
+
+(bind-func find_string
+  (lambda (sstring:String* fstring:String*)
+    (let ((flen (length fstring))
+          (slen (length sstring))
+          (loop (lambda (i)
+                  (cond
+                    ((< i 0) -1)
+                    ((> i (- flen slen)) -1)
+                    ((= 1:i1 (equal sstring (substring fstring i (+ i slen))))
+                      i)
+                    (else
+                      (loop (+ i 1)))))))
+      (loop 0))))
+
+
+(bind-type node <String*,String*,String*,String*,String*>)
+
+(bind-func type
+  (lambda (n:node*)
+    (tref n 0)))
+
+(bind-func name
+  (lambda (n:node*)
+    (tref n 1)))
+
+(bind-func attrib
+  (lambda (n:node*)
+    (tref n 2)))
+
+(bind-func body
+  (lambda (n:node*)
+    (tref n 3)))
+
+(bind-func rest
+  (lambda (n:node*)
+    (tref n 4)))
+
+(bind-func create_node
+  (lambda (type:String* name:String* attrib:String* body:String* rest:String*)
+    (let ((n:node* (zalloc)))
+      (tfill! n type name attrib body rest)
+      n)))
+
+(bind-func clear_node
+  (lambda (n:node*)
+    (tfill! n (Str "[null]") (Str "[null]") (Str "[null]") (Str "[null]") (Str "[null]"))
+    1))
+
+(bind-func fill_node
+  (lambda (n:node* type:String* name:String* attrib:String* body:String* rest:String*)
+    (tfill! n type name attrib body rest)
+    1))
+
+
+
+(bind-func read_node_type
+  (lambda (data:String*)
+    (cond
+      ((<= (length data) 0) (println "error reading node type: empty string") (Str "[null]"))
+      ((equal (substring data 1 2) (Str "!")) (Str "exclamation"))
+      ((equal (substring data 1 2) (Str "?")) (Str "question"))
+      ((equal (substring data 1 2) (Str "/")) (Str "closing"))
+      (else
+        (Str "neutral")))))
+
+(bind-func read_node_name
+  (lambda (data:String*)
+    (cond
+      ((<= (length data) 1) (println "error reading node name: empty data") (Str "[null]"))
+      (else
+        (let ((closingpos (find_string (Str ">") data))
+              (spacepos (find_string (Str " ") data)))
+          (cond
+            ((= -1 closingpos) (println "no '>' found, invalid tag") (Str "[null]"))
+            ((or (= -1 spacepos) (> spacepos closingpos)) (substring data 1 closingpos))
+            ((< spacepos closingpos) (substring data 1 spacepos))
+            (else
+              (println "unknown error reading node name")
+              (Str "[null]"))))))))
+
+(bind-func read_node_attrib
+  (lambda (data:String*)
+    (cond
+      ((<= (length data) 1) (println "error reading node attributes: empty data") (Str "[null]"))
+      (else
+        (let ((closingpos (find_string (Str ">") data))
+              (spacepos (find_string (Str " ") data)))
+          (cond
+            ((or (= -1 spacepos) (> spacepos closingpos)) (Str "[null]"))
+            ;((equal (substring data (- closingpos 1) closingpos) (Str "/")) (Str "[null]"))
+            ((< spacepos closingpos) (substring data (+ 1 spacepos) (- closingpos (if (equal (substring data (- closingpos 1) closingpos) (Str "/")) 1 0))))
+            (else
+              (println "unknown error reading node attributes")
+              (Str "[null]"))))))))
+
+(bind-func create_closetag
+  (lambda (data:String*)
+    (let ((name (read_node_name data)))
+      (cat2 (Str "</") (cat2 name (Str ">"))))))
+
+(bind-func read_node_body
+  (lambda (data:String*)
+    (cond
+      ((<= (length data) 1) (println "error reading node body: empty data") (Str "[null]"))
+      (else
+        (let ((tagend (find_string (Str ">") data)))
+          (cond
+            ((equal (Str "/") (substring data (- tagend 1) tagend)) (Str "[null]"))
+            ((equal (Str "?") (substring data (- tagend 1) tagend)) (Str "[null]"))
+            ((equal (Str "!") (substring data 1 2)) (Str "[null]"))
+            (else
+              (let ((closetag (create_closetag data))
+                    (endpos (find_string closetag data)))
+                (cond
+                  ((< endpos 0) (println "no closing tag discovered, ignoring node") (Str "[null]"))
+                  (else
+                    (substring data (+ tagend 1) endpos)))))))))))
+
+(bind-func read_rest
+  (lambda (data:String*)
+    (cond
+      ((<= (length data) 1) (println "error reading node body: empty data") (Str "[null]"))
+      (else
+        (let ((closing (find_string (Str ">") data)))
+          (cond
+            ((>= closing (length data)) (Str "[null]"))
+            ((equal (Str "/") (substring data (- closing 1) closing)) (substring data (+ closing 1) (length data)))
+            ((equal (Str "?") (substring data (- closing 1) closing)) (substring data (+ closing 1) (length data)))
+            ((equal (Str "!") (substring data 1 2)) (substring data (+ closing 1) (length data)))
+            (else
+              (let ((closetag (create_closetag data))
+                    (endpos (+ (find_string closetag data) (length closetag))))
+                (cond
+                  ((equal closetag (Str "</[null]>")) (println "error reading rest: malformed file structure") (Str "[null]"))
+                  ((>= endpos (length data)) (Str "[null]"))
+                  (else
+                    (substring data endpos (length data))))))))))))
+
+(bind-func find_next_node
+  (lambda (data:String*)
+    (let ((start (find_string (Str "<") data)))
+      (cond
+        ((= start -1) (Str "[null]"))
+        (else
+          (substring data start (length data)))))))
+
+(bind-func read_node
+  (lambda (n:node* data:String*)
+    (clear_node n)
+    (set! data (find_next_node data))
+    (cond
+      ((= 0 (length data)) (println "no node found") 0)
+      ((not (equal (substring data 0 1) (Str "<"))) (println "no '<' found") 0)
+      (else
+        (let ((type:String* (read_node_type data))
+              (name:String* (read_node_name data))
+              (attrib:String* (read_node_attrib data))
+              (body:String* (read_node_body data))
+              (rest:String* (read_rest data)))
+          (fill_node n type name attrib body rest)
+          1)))))
+
+(bind-func print_node
+  (lambda (n:node*)
+    ;(printf "\ntype: %s, name: %s, attrib: %s, body: %s, rest: %s\n"
+    ;        (cstring (type n))
+    ;        (cstring (name n))
+    ;        (cstring (attrib n))
+    ;        (cstring (body n))
+    ;        (cstring (rest n)))
+    (printf "\ntype: %s, name: %s, attrib: %s."
+            (cstring (type n))
+            (cstring (name n))
+            (cstring (attrib n)))
+    1))
+
+(bind-func read_id
+  (lambda (id:i64* data:String*)
+    (let ((dummy:i8* (alloc))
+          (tmp (insert data 4 (Str " "))))
+      (sscanf (cstring tmp) "%s%d" dummy id))))
+
+(bind-func calc_duration
+  (lambda (dur:float divisions:float measuredur:float beats:float beattype:float)
+    (* (/ dur divisions) (* (/ measuredur beats) (pow 2.0 (- (/ (log beattype) (log 2.0)) 2.0))))))
+
+
+
+
+(bind-func read_music_xml2
+  (lambda (starttime:i64 filepath:String*)
+    (let ((filedata:String* (Str "null"))
+          (score:score* (alloc))
+          (file (fopen "anna_error404/output-xml.xtm" "w"))
+          (root (Str "null"))
+          (alteration (Str "natural"))
+          (notehead (Str "natural"))
+          (octave:i64* (alloc))
+          (part:i64* (alloc))
+          (voice:i64* (alloc))
+          (measure:i64* (alloc))
+          (divisions:i64* (alloc))
+          (beatunit:float* (alloc))
+          (perminute:i64* (alloc))
+          (beats:i64* (alloc))
+          (beattype:i64* (alloc))
+          (nduration:i64* (alloc))
+          (dfactor:float* (alloc))
+          (chorddur:float 0.0)
+          (text (Str ""))
+          (isrest:i1 0)
+          (ischord:i1 0)
+          (istied:i1 0)
+          (beatunitdot:i1 0)
+          (accent:i1 0)
+          (staccato:i1 0)
+          (detached-legato:i1 0)
+          (tenuto:i1 0)
+          (timecursor 0)
+          (measurecursor 0)
+          (measuredur 0))
+      (if (null? (sys_slurp_file (cstring filepath)))
+          (begin
+            (println "fatal error opening xml file")
+            (set! filedata (Str "[null]")))
+          (set! filedata (Str (sys_slurp_file (cstring filepath)))))
+      (set! score (make_score))
+      (pset! octave 0 0)
+      (pset! part 0 0)
+      (pset! voice 0 1)
+      (pset! measure 0 0)
+      (pset! divisions 0 0)
+      (pset! beatunit 0 0.0)
+      (pset! perminute 0 0)
+      (pset! beats 0 0)
+      (pset! beattype 0 0)
+      (pset! nduration 0 0)
+      (pset! dfactor 0 1.0)
+      (fprintf file "%s" "(let ((t (now)))\n")
+      (let ((readloop (lambda (data:String*)
+                        (let ((n:node* (alloc)))
+                          (clear_node n)
+                          (read_node n data)
+                          ;(print_node n)
+                          (cond
+                            ((equal (name n) (Str "beats"))
+                              (sscanf (cstring (body n)) "%d" beats)
+                              (if (equal (find_next_node (rest n)) (Str "[null]"))
+                                  0
+                                  (readloop (rest n))))
+                            ((equal (name n) (Str "beat-type"))
+                              (sscanf (cstring (body n)) "%d" beattype)
+                              (if (equal (find_next_node (rest n)) (Str "[null]"))
+                                  0
+                                  (readloop (rest n))))
+                            ((equal (name n) (Str "per-minute"))
+                              (sscanf (cstring (body n)) "%d" perminute)
+                              (if (equal (find_next_node (rest n)) (Str "[null]"))
+                                  0
+                                  (readloop (rest n))))
+                            ((equal (name n) (Str "beat-unit-dot"))
+                              (set! beatunitdot 1)
+                              (pset! beatunit 0 (* (/ (pref beatunit 0) 3.0) 2.0))
+                              (if (equal (find_next_node (rest n)) (Str "[null]"))
+                                  0
+                                  (readloop (rest n))))
+                            ((equal (name n) (Str "beat-unit"))
+                              (let ((unit:String* (body n)))
+                                (cond ((equal unit (Str "quarter")) (pset! beatunit 0 4.0))
+                                      (else (pset! beatunit 0 0.0))))
+                              (if (= beatunitdot 1)
+                                (pset! beatunit 0 (* (/ (pref beatunit 0) 3.0) 2.0)))
+                              (if (equal (find_next_node (rest n)) (Str "[null]"))
+                                  0
+                                  (readloop (rest n))))
+                            ((or (equal (name n) (Str "metronome"))
+                                 (equal (name n) (Str "time")))
+                              (set! beatunitdot 0)
+                              (readloop (body n))
+                              (let ((sr:float (i64tof SR))
+                                    (pm:float (i64tof (pref perminute 0)))
+                                    (bu:float (pref beatunit 0))
+                                    (bt:float (i64tof (pref beattype 0)))
+                                    (b:float (i64tof (pref beats 0)))
+                                    (mdur:float (* b (/ (/ (* sr 60.0) (/ pm bu)) bt))))
+                                (set! measuredur (ftoi64 mdur)))
+                              (if (equal (find_next_node (rest n)) (Str "[null]"))
+                                  0
+                                  (readloop (rest n))))
+                            ((equal (name n) (Str "divisions"))
+                              (sscanf (cstring (body n)) "%d" divisions)
+                              (if (equal (find_next_node (rest n)) (Str "[null]"))
+                                  0
+                                  (readloop (rest n))))
+                            ((equal (name n) (Str "part"))
+                              (printf "\n\nopening new part!")
+                              (set! timecursor 0)
+                              (set! measurecursor 0)
+                              (pset! voice 0 0)
+                              (pset! measure 0 0)
+                              (set! isrest 0)
+                              (readloop (body n))
+                              (if (equal (find_next_node (rest n)) (Str "[null]"))
+                                  0
+                                  (readloop (rest n))))
+                            ((equal (name n) (Str "measure"))
+                              (pset! voice 0 0)
+                              (set! isrest 0)
+                              (readloop (body n))
+                              (set! measurecursor (+ measurecursor measuredur))
+                              (if (equal (find_next_node (rest n)) (Str "[null]"))
+                                  0
+                                  (readloop (rest n))))
+                            ((equal (name n) (Str "accent"))
+                              (set! accent 1)
+                              (if (equal (find_next_node (rest n)) (Str "[null]"))
+                                  0
+                                  (readloop (rest n))))
+                            ((equal (name n) (Str "staccato"))
+                              (set! staccato 1)
+                              (if (equal (find_next_node (rest n)) (Str "[null]"))
+                                  0
+                                  (readloop (rest n))))
+                            ((equal (name n) (Str "tenuto"))
+                              (set! tenuto 1)
+                              (if (equal (find_next_node (rest n)) (Str "[null]"))
+                                  0
+                                  (readloop (rest n))))
+                            ((equal (name n) (Str "detached-legato"))
+                              (set! detached-legato 1)
+                              (if (equal (find_next_node (rest n)) (Str "[null]"))
+                                  0
+                                  (readloop (rest n))))
+                            ((equal (name n) (Str "rest"))
+                              (set! isrest 1:i1)
+                              (if (equal (find_next_node (rest n)) (Str "[null]"))
+                                  0
+                                  (readloop (rest n))))
+                            ((equal (name n) (Str "note"))
+                              (set! accent 0)
+                              (set! staccato 0)
+                              (set! detached-legato 0)
+                              (set! tenuto 0)
+                              (set! ischord 0)
+                              (set! istied 0)
+                              (set! text (Str "[null]"))
+                              (set! notehead (Str "natural"))
+                              (readloop (body n))
+                              ;(printf "octave report: %d" (pref octave 0))
+                              (cond ((and (equal notehead (Str "diamond")) (equal alteration (Str "natural"))) (set! alteration (Str "quarter-sharp")) 1)
+                                    ((and (equal notehead (Str "diamond")) (equal alteration (Str "sharp"))) (set! alteration (Str "three-quarters-sharp")) 1)
+                                    ((and (equal notehead (Str "diamond")) (equal alteration (Str "flat"))) (set! alteration (Str "quarter-flat")) 1)
+                                    ((equal notehead (Str "natural")) 1)
+                                    ((equal notehead (Str "square")) 1)
+                                    (else
+                                      (println "ignoring notehead")
+                                      0))
+                              (if (= ischord 1)
+                                (begin
+                                  (set! timecursor (start (note score (- (length score) 1))))
+                                  (pset! nduration 0 (duration (note score (- (length score) 1))))
+                                  ;(printf "\nnote: %s %lld %s, timestamp %d, duration %d"
+                                  ;        (cstring root)
+                                  ;        (pref octave 0)
+                                  ;        (cstring alteration)
+                                  ;        timecursor
+                                  ;        (pref nduration 0))
+                                  (let ((n:note* (zalloc))
+                                        (nn:notename* (zalloc)))
+                                    (set! nn (make_notename root (pref octave 0) alteration))
+                                    (set! n (make_note measurecursor timecursor (pref nduration 0) 1.0 (pref nn 0)))
+                                    (fprintf file " %s %d %s %d %d %s" "(pln (+ t " (+ starttime timecursor) ") " (keynr (pref nn 0)) (ftoi64 (* (pref dfactor 0) chorddur)) ")\n")
+                                    (if (equal notehead (Str "square"))
+                                      (fprintf file " %s %d %s %d %d %s" "(pln (+ t " (+ starttime timecursor) ") " (+ 1 (keynr (pref nn 0))) (ftoi64 (* (pref dfactor 0) chorddur)) ")\n"))
+                                    (append_note score (pref n 0)))
+                                  (set! timecursor (+ timecursor (pref nduration 0)))
+                                  (set! alteration (Str "natural")))
+                                (let ((dur:float (calc_duration (i64tof (pref nduration 0))
+                                                                (i64tof (pref divisions 0))
+                                                                (i64tof measuredur)
+                                                                (i64tof (pref beats 0))
+                                                                (i64tof (pref beattype 0))))
+                                      (sdur:float (- dur 1.0)))
+                                  (cond
+                                    ((and (= accent 1) (= staccato 1)) (set! sdur 3000.0))
+                                    ((= staccato 1) (set! sdur 4500.0))
+                                    ((= tenuto 1) (if (>= dur 4000.0)
+                                                    (set! sdur (- dur 4000.0))
+                                                    (set! sdur (- dur 1.0))))
+                                    ((= detached-legato 1) (set! sdur 7000.0))
+                                    (else
+                                      (set! sdur (- dur 1.0))))
+                                  (if (not isrest)
+                                    (if istied
+                                      (let ((i (- (length score) 1)))
+                                        (let ((n:note* (zalloc))
+                                              (nn:notename* (zalloc)))
+                                          ;(set! nn (make_notename root (pref octave 0) alteration))
+                                          (set! n (make_note (measureStart (note score i)) (start (note score i)) (+ (duration (note score i)) (ftoi64 dur)) (factor (note score i)) (name (note score i))))
+                                          (set_note score i (pref n 0)))
+                                        ;(set_note score i (make_note (measureStart (note score i))
+                                        ;                             (start (note score i))
+                                        ;                             (+ (duration (note score i)) (ftoi64 dur))
+                                        ;                             (factor (note score i))
+                                        ;                             (name (note score i))))
+                                        (printf ""))
+                                      (begin
+                                        ;(printf "\nnote: %s %d %s, timestamp %d, duration %d"
+                                        ;        (cstring root)
+                                        ;        (pref octave 0)
+                                        ;        (cstring alteration)
+                                        ;        timecursor
+                                        ;        (ftoi64 dur))
+                                        (let ((n:note* (zalloc))
+                                              (nn:notename* (zalloc)))
+                                          (set! nn (make_notename root (pref octave 0) alteration))
+                                          (set! n (make_note measurecursor timecursor (ftoi64 dur) 1.0 (pref nn 0)))
+                                          (append_note score (pref n 0)))
+                                        ;(append_note score (make_note measurecursor timecursor (ftoi64 dur) 1.0 (make_notename root (pref octave 0) alteration)))
+                                        (let ((nn:notename* (zalloc)))
+                                          (set! nn (make_notename root (pref octave 0) alteration))
+                                          (fprintf file " %s %d %s %d %d %s" "(pln (+ t " (+ starttime timecursor) ") " (keynr (pref nn 0)) (ftoi64 (* (pref dfactor 0) sdur)) ")\n")
+                                          (if (equal notehead (Str "square"))
+                                            (fprintf file " %s %d %s %d %d %s" "(pln (+ t " (+ starttime timecursor) ") " (+ 1 (keynr (pref nn 0))) (ftoi64 (* (pref dfactor 0) sdur)) ")\n")))))
+                                        ;(callback (+ starttime timecursor (ftoi64 dur)) 'writeToPort (keynr (make_notename root octave alteration)) 0))
+                                    (begin
+                                      (set! isrest 0)
+                                      (fprintf file "")))
+                                  (set! chorddur sdur)
+                                  (set! timecursor (+ timecursor (ftoi64 dur)))
+                                  (set! alteration (Str "natural"))))
+                              ;(printf "\nnote found: %s %lld %s" (cstring root) (pref octave 0) (cstring alteration))
+                              (if (equal (find_next_node (rest n)) (Str "[null]"))
+                                  0
+                                  (readloop (rest n))))
+                            ((equal (name n) (Str "voice"))
+                              (let ((newvoice:i64* (alloc)))
+                                (sscanf (cstring (body n)) "%d" newvoice)
+                                (if (> (pref newvoice 0) (pref voice 0))
+                                  (begin
+                                    (set! timecursor measurecursor)
+                                    (pset! voice 0 (pref newvoice 0)))
+                                  ))
+                              (if (equal (find_next_node (rest n)) (Str "[null]"))
+                                  0
+                                  (readloop (rest n))))
+                            ((equal (name n) (Str "backup"))
+                              (sscanf (cstring (body n)) "<duration>%d</duration>" nduration)
+                              (let ((dur:float (calc_duration (i64tof (pref nduration 0))
+                                                              (i64tof (pref divisions 0))
+                                                              (i64tof measuredur)
+                                                              (i64tof (pref beats 0))
+                                                              (i64tof (pref beattype 0)))))
+                              (set! timecursor (- timecursor (ftoi64 dur))))
+                              (if (equal (find_next_node (rest n)) (Str "[null]"))
+                                  0
+                                  (readloop (rest n))))
+                            ((equal (name n) (Str "forward"))
+                              (sscanf (cstring (body n)) "<duration>%d</duration>" nduration)
+                              (let ((dur:float (calc_duration (i64tof (pref nduration 0))
+                                                              (i64tof (pref divisions 0))
+                                                              (i64tof measuredur)
+                                                              (i64tof (pref beats 0))
+                                                              (i64tof (pref beattype 0)))))
+                              (set! timecursor (+ timecursor (ftoi64 dur))))
+                              (if (equal (find_next_node (rest n)) (Str "[null]"))
+                                  0
+                                  (readloop (rest n))))
+                            ((equal (name n) (Str "chord"))
+                              (set! ischord 1)
+                              (if (equal (find_next_node (rest n)) (Str "[null]"))
+                                  0
+                                  (readloop (rest n))))
+                            ((equal (name n) (Str "words"))
+                              (set! text (body n))
+                              (if (equal (substring text 0 1) (Str "!"))
+                                  (begin
+                                    (fprintf file "(callback (+ t %d) '%s\n" timecursor (cstring (substring text 3 (length text))))))
+                              (if (equal (substring text 0 1) (Str "f"))
+                                  (begin
+                                    (sscanf (cstring (body n)) "f%d" dfactor)))
+                              (if (equal (find_next_node (rest n)) (Str "[null]"))
+                                  0
+                                  (readloop (rest n))))
+                            ((equal (name n) (Str "duration"))
+                              (sscanf (cstring (body n)) "%d" nduration)
+                              (if (equal (find_next_node (rest n)) (Str "[null]"))
+                                  0
+                                  (readloop (rest n))))
+                            ((equal (name n) (Str "tie"))
+                              (if (equal (substring (attrib n) 6 10) (Str "stop"))
+                                (set! istied 1))
+                              (if (equal (find_next_node (rest n)) (Str "[null]"))
+                                  0
+                                  (readloop (rest n))))
+                            ((equal (name n) (Str "step"))
+                              (set! root (body n))
+                              (if (equal (find_next_node (rest n)) (Str "[null]"))
+                                  0
+                                  (readloop (rest n))))
+                            ((equal (name n) (Str "octave"))
+                              (sscanf (cstring (body n)) "%d" octave)
+                              ;(printf "\noctave body: %s = %d" (cstring (body n)) (pref octave 0))
+                              (if (equal (find_next_node (rest n)) (Str "[null]"))
+                                  0
+                                  (readloop (rest n))))
+                            ((equal (name n) (Str "notehead"))
+                              (set! notehead (body n))
+                              (if (equal (find_next_node (rest n)) (Str "[null]"))
+                                  0
+                                  (readloop (rest n))))
+                            ((equal (name n) (Str "accidental"))
+                              (set! alteration (body n))
+                              (if (equal (find_next_node (rest n)) (Str "[null]"))
+                                  0
+                                  (readloop (rest n))))
+                            ((and (or (equal (body n) (Str "[null]"))
+                                      (equal (find_next_node (body n)) (Str "[null]")))
+                                  (or (equal (rest n) (Str "[null]"))
+                                      (equal (find_next_node (rest n)) (Str "[null]"))))
+                              1)
+                            ((or (equal (body n) (Str "[null]"))
+                                 (equal (find_next_node (body n)) (Str "[null]")))
+                              (readloop (rest n)))
+                            ((or (equal (rest n) (Str "[null]"))
+                                 (equal (find_next_node (rest n)) (Str "[null]")))
+                              (readloop (body n)))
+                            (else
+                              (readloop (body n))
+                              (readloop (rest n))))))))
+              (readloop filedata)
+              (fprintf file "%s" ")\n")
+              (fclose file)
+              ;(print score)
+              (println "xml file converted")
+              void))))
+
+(println "system ready to parse")
+
+
+
+
+($ (printf "\n\n\n") (read_music_xml2 0 (Str "anna_error404/anna50.xml")))
+
+(reset-system)
+
+
+
+
+; Überbindungen
+; Tempo application
+; xml simplifier
+;

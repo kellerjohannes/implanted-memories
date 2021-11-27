@@ -1,0 +1,77 @@
+
+; evaluate arciorgano-comm.xtm
+; evaluate implanted-memories.xtm
+
+(println)
+(motor 1)
+
+(verse1 (now))
+(pre-chorus-ver3 (now))
+(chorus-1-new-ver-agogic (now))
+(pre-chorus2 (now))
+(chorus-2 (now))
+;bridge (callback)
+(verse3 (now))
+(meditation (now) (* 5 60 *second*))
+
+(chorus-1-new-ver-agogic (pre-chorus-ver3 (verse1 (now))))
+
+(lamp 1)
+(motor 0)
+(panic)
+
+; manuscript page 1, hard scheduling, returns end time
+(p1-ver1 (now))
+
+; manuscript page 2, hard scheduling, returns end time
+(p2-ver1 (now))
+(pre-chorus-ver1 (now))
+(pre-chorus-ver2 (now))
+(pre-chorus-ver3 (now))
+
+; chorus 1 7, hard scheduling,
+(p3-ver1 (now))
+
+; chorus 1 new version (with humanizer)
+(chorus-1-new-ver (now))
+(chorus-1-new-ver-agogic (now))
+
+
+; arpeggio-loop with enveloped speed, envelop segments are executed on evaluation
+
+(define ex '(72 83 93 104))
+(define arpramper (lambda () 5000))
+(arp-loop-ramp (now) ex ex (+ (now) (* 60 *second*)))
+
+(define arpramper (ramper 5000 (* 10 *second*) 50000))
+
+(define arpramper (ramper 50000 (* 17 *second*) 3000))
+
+(define arp-loop-ramp (lambda ()))
+
+
+
+; algorithmic loop, start on evaluation of whole block
+
+(define pool '(73 85 72 93 104 105))
+(define subpool '(73 72 105))
+(define endpool '(73 72 105))
+(define dur_ind (lambda () 9000)) ; ex1 9000, ex2 12000, ex3 18000
+(define delta (lambda () 8000)) ;ex1-3 8000, ex4 5000
+(define shuffling #t)
+(shuffle-chord (now))
+(callback (+ (now) (* 5 60 *second*)) 'stop-shuffle)
+
+(stop-shuffle)
+
+
+
+
+
+
+
+(meditation (now) (* 5 60 *second*))
+
+
+(shutdown-system)
+(init-system)

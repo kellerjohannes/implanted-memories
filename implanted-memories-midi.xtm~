@@ -1,0 +1,23 @@
+
+(sys:load "libs/external/portmidi.xtm")
+
+(pm_initialize)
+(pm_print_devices)
+
+; see listed devices for correct id (int)
+(define *midi-out* (pm_create_output_stream 14))
+
+(define video-start
+  (lambda (t)
+    (play-midi-note t *midi-out* 1 120 33100 0)))
+
+(define video-stop
+  (lambda (t)
+    (play-midi-note t *midi-out* 2 120 33100 0)
+    (play-midi-note (+ t 20000) *midi-out* 3 120 33100 0)))
+
+
+
+;(play-midi-note (now) *midi-out* 1 120 44100 0)
+;(play-midi-note (now) *midi-out* 2 120 44100 0)
+;(play-midi-note (now) *midi-out* 4 120 44100 0)

@@ -1,0 +1,125 @@
+(sys:load "libs/external/portmidi.xtm")
+
+(pm_initialize)
+(pm_print_devices)
+
+; see listed devices for correct id (int)
+(define *midi-out* (pm_create_output_stream 0))
+
+
+(bind-func translate-keynum
+  (let ((remap-keynum:i8* (halloc 138)))
+    (pfill! remap-keynum
+	    1 3 2 4 5 6 7 8 9 1            ; 1-10
+	    11 3 10 2 12 4 14 6 13 5       ; 11-20
+	    15 7 16 8 17 9 18 10 19 20     ; 21-30
+	    11 22 13 21 12 23 14 24 15 25  ; 31-40
+	    16 26 17 27 28 18 30 20 29 19  ; 41-50
+	    31 21 33 23 32 22 34 24 35 25  ; 51-60
+	    36 26 37 27 38 39 28 41 30 40  ; 61-70
+	    29 42 31 43 32 44 33 45 34 46  ; 71-80
+	    47 35 49 37 48 36 50 38 52 40  ; 81-90
+	    51 39 53 41 54 42 55 43 56 44  ; 91-100
+	    57 58 45 60 47 59 46 61 48 62  ; 101-110
+	    49 63 50 64 51 65 66 52 68 54  ; 111-120
+	    67 53 69 55 71 57 70 56 72 58  ; 121-130
+	    73 59 74 60 75 61 76 62)
+    (lambda (id)
+      (- (pref remap-keynum (- id 1)) 1:i8))))
+
+(bind-func translate-manual
+  (let ((remap-manual:i8* (halloc 138)))
+    (pfill! remap-manual
+	    1 1 1 1 1 1 1 1 1 2
+	    1 2 1 2 1 2 1 2 1 2
+	    1 2 1 2 1 2 1 2 1 1
+	    2 1 2 1 2 1 2 1 2 1
+	    2 1 2 1 1 2 1 2 1 2
+	    1 2 1 2 1 2 1 2 1 2
+	    1 2 1 2 1 1 2 1 2 1
+	    2 1 2 1 2 1 2 1 2 1
+	    1 2 1 2 1 2 1 2 1 2
+	    1 2 1 2 1 2 1 2 1 2
+	    1 1 2 1 2 1 2 1 2 1
+	    2 1 2 1 2 1 1 2 1 2
+	    1 2 1 2 1 2 1 2 1 2
+	    1 2 1 2 1 2 1 2)
+    (lambda (id)
+      (- (pref remap-manual (- id 1)) 1:i8))))
+
+(define writeToMIDI
+    (lambda (index state)
+      (pm_send *midi-out* (if (= state 0)
+			      *midi-note-off*
+			      *midi-note-on*)
+	       (translate-manual index)
+	       (translate-keynum index)
+	       100)
+      (println "midi: " (translate-keynum index)
+	                (translate-manual index))))
+
+(define arci-comm
+  (lambda (key state)
+    (writeToMIDI key state)))
+
+(define prn
+  (lambda (nr)
+    (writeToMIDI nr 1)))
+
+(define rln
+  (lambda (nr)
+    (writeToMIDI nr 0)))
+
+(define pln
+  (lambda (t nr d)
+    (callback t 'prn nr)
+    (callback (+ t d) 'rln nr)))
+
+(define testswipe
+  (lambda (nr t)
+    (cond ((> nr 138) 0)
+	  (else (pln t nr (* .3 44100))
+		(testswipe (+ 1 nr) (+ (* .3 60000) t))))))
+
+(testswipe 1 (now))
+
+(define prnt
+  (lambda (t nr)
+    (callback t 'prn nr)))
+
+(define rlnt
+  (lambda (t nr)
+    (callback t 'rln nr)))
+
+(define lamp
+  (lambda (state)
+    (play-midi-note (now) *midi-out* (if (= state 1)
+					 10
+					 1)
+		    100 44100 2)))
+
+(define motor
+  (lambda (state)
+    (play-midi-note (now) *midi-out* (if (= state 1)
+					 10
+					 1)
+		    100 44100 3)))
+
+(define video-start
+  (lambda (t)
+    (play-midi-note t *midi-out* 10 100 33100 4)))
+
+(define video-stop
+  (lambda (t)
+    (play-midi-note t *midi-out* 1 100 33100 4)))
+
+(define swipe-zero
+  (lambda (s t)
+    (cond ((> s 138) 9)
+    (else
+      (rln s)
+      (callback (+ t 10) 'swipe-zero (+ s 1) (+ t 20))))))
+
+(swipe-zero 1 (now))
+(lamp 0)
+(motor 0)

@@ -1,0 +1,152 @@
+(sys:load "libs/external/portmidi.xtm")
+
+(pm_initialize)
+(pm_print_devices)
+
+; see listed devices for correct id (int)
+(define *midi-out* (pm_create_output_stream 0))
+
+(define video-start
+  (lambda (t)
+    (play-midi-note t *midi-out* 1 120 33100 4)))
+
+(define video-stop
+  (lambda (t)
+    (play-midi-note t *midi-out* 2 120 33100 4)
+    (play-midi-note (+ t 20000) *midi-out* 3 120 33100 4)))
+
+
+(bind-func writeToMIDI
+  (let ((remap:i8* (halloc 138))
+        (i 0))
+    (pfill! remap 1 2 3 4 6 5 7 8 9 77 10 11 78 79 12 80 13 14 81 82 15 83 17 16 85 84 18 86 19 20 87 21 22 88 89 23 90 25 24 92 91 26 93 27 28 94 29 30 95 96 31 97 32 33 98 99 34 100 36 35 102 101 37 103 38 39 104 40 41 105 106 42 107 44 43 109 108 45 110 46 47 111 48 49 112 113 50 114 51 52 115 116 53 117 55 54 119 118 56 120 57 58 121 59 60 122 123 61 124 63 62 126 125 64 127 65 66 128 67 68 129 130 69 131 70 71 132 133 72 134 74 73 136 135 75 137 76 138)))
+
+(bind-func translate-keynum
+  (let ((remap-keynum:i8* (halloc 138)))
+    (pfill! remap-keynum
+	    1 2 3 4 5 6 7 8 9 1
+	    10 2 11 3 12 4 13 5 14 6
+	    15 7 16 8 17 9 18 10 19 20
+	    11 21 12 22 13 23 14 24 15 25
+	    16 26 17 27 28 18 29 19 30 20
+	    31 21 32 22 33 23 34 24 35 25
+	    36 26 37 27 38 39 28 40 29 41
+	    30 42 31 43 32 44 33 45 34 46
+	    47 35 48 36 49 37 50 38 51 39
+	    52 40 53 41 54 42 55 43 56 44
+	    57 58 45 59 46 60 47 61 48 62
+	    49 63 50 64 51 65 66 52 67 53
+	    68 54 69 55 70 56 71 57 72 58
+	    73 59 74 60 75 61 76 62)
+    (lambda (id)
+      (pref remap-keynum (- (- id 1) 1)))))
+
+(bind-func translate-manual
+  (let ((remap-manual:i8* (halloc 138)))
+    (pfill! remap-manual
+	    1 1 1 1 1 1 1 1 1 2
+	    1 2 1 2 1 2 1 2 1 2
+	    1 2 1 2 1 2 1 2 1 1
+	    2 1 2 1 2 1 2 1 2 1
+	    2 1 2 1 1 2 1 2 1 2
+	    1 2 1 2 1 2 1 2 1 2
+	    1 2 1 2 1 1 2 1 2 1
+	    2 1 2 1 2 1 2 1 2 1
+	    1 2 1 2 1 2 1 2 1 2
+	    1 2 1 2 1 2 1 2 1 2
+	    1 1 2 1 2 1 2 1 2 1
+	    2 1 2 1 2 1 1 2 1 2
+	    1 2 1 2 1 2 1 2 1 2
+	    1 2 1 2 1 2 1 2)
+    (lambda (id)
+      (pref remap-manual (- id 1)))))
+
+(define writeToMIDI
+    (lambda (index state)
+      (pm_send *midi-out* (if (= state 0)
+			      *midi-note-off*
+			      *midi-note-on*)
+	       (translate-manual index)
+	       (translate-keynum index)
+	       100)
+      (println "midi: " (translate-keynum index)
+	                (translate-manual index))))
+
+(define arci-comm
+  (lambda (key state)
+    (writeToMIDI key state)))
+
+11 15-19
+19 ...
+
+
+
+(define prn
+  (lambda (nr)
+    (writeToMIDI nr 1)))
+
+(define rln
+  (lambda (nr)
+    (writeToMIDI nr 0)))
+
+(define pln
+  (lambda (t nr d)
+    (callback t 'prn nr)
+    (callback (+ t d) 'rln nr)))
+
+(define prnt
+  (lambda (t nr)
+    (callback t 'prn nr)))
+
+(define rlnt
+  (lambda (t nr)
+    (callback t 'rln nr)))
+
+(define lamp
+  (lambda (state)
+    (writeToPort 200 state)))
+
+(define motor
+  (lambda (state)
+    (writeToPort 201 state)))
+
+
+(define init-system
+  (lambda ()
+    (init-port)
+    (lamp 1)
+    (motor 1)))
+
+(define reset-system
+  (lambda ()
+    (init-system)
+    (swipe-zero 0 (now))))
+
+(define shutdown-system
+  (lambda ()
+    (lamp 0)
+    (motor 0)))
+
+(define swipe-zero
+  (lambda (s t)
+    (cond ((> s 138) 9)
+    (else
+      (rln s)
+      (callback (+ t 10) 'swipe-zero (+ s 1) (+ t 20))))))
+
+(define swipe
+  (lambda (n)
+    (cond ((> n 138) 0)
+	  (else
+	   (prn n)
+	   (callback (+ (now) 30000) 'rln n)
+	   (callback (+ (now) 6000) 'swipe (+ 1 n))))))
+
+(swipe 1)
+
+(init-system)
+(reset-system)
+;(shutdown-system)
+
+(lamp 0)
+(motor 0)

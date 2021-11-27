@@ -1,0 +1,89 @@
+(sys:load "libs/external/portmidi.xtm")
+(sys:load "libs/contrib/librs232.xtm")
+(sys:load "accelerate/arciorgano-fundamentals.xtm")
+
+(init-system)
+
+(define reich  '(78 83 99  104 108 83 78 104 99  83 108 104))
+(define reich2 '(79 85 100 106 109 85 79 106 100 85 109 106))
+(define reich-en '(78 84 99  105 108 84 78 105 99  84 108 105))
+(define reich2-en '(79 86 100 107 109 86 79 107 100 86 109 107))
+
+(define play-list
+  (lambda (t l)
+    (cond ((equal? running #t)
+      ;(plcl t (- (car l) 3) (+ (car l) -3) 8000)
+      (pln t (- (car l) 0) 8000)
+      (pln t (- (car l) 36)  8000)
+      (if (null? (cdr l))
+          (callback (+ t 3000) 'play-list (+ t 8000) reich)
+          (callback (+ t 3000) 'play-list (+ t 8000) (cdr l))))
+      (else 0))))
+
+(define play-list2
+  (lambda (t l)
+    (cond ((equal? running #t)
+      (pln t (car l) 8000)
+      (pln t (- (car l) 36) 8000)
+      (if (null? (cdr l))
+          (callback (+ t 3000) 'play-list2 (+ t 8050) reich2)
+          (callback (+ t 3000) 'play-list2 (+ t 8050) (cdr l))))
+      (else 0))))
+
+(motor 1)
+(lamp 1)
+
+(motor-pulse 2)
+
+(init-system)
+(shutdown-system)
+
+(define running #f)
+
+
+
+(let ((t (+ 1000 (now))))
+  (play-list t reich)
+  (play-list2 t reich2))
+
+(play-list (now) reich)
+
+(define swipe-manual
+  (lambda (start)
+    (cond
+      ((> start 138) 0)
+      (else
+        (pln (now) start 10000)
+        (callback (+ (now) 500) 'swipe-manual (+ start 1))))))
+
+
+(motor 0)
+(lamp 0)
+(swipe-manual 1)
+
+(plcl (now) 1 70 (* 2 44100))
+
+(define rep-cl
+  (lambda (t)
+    (plcl t 45 74 44100)
+    (callback (+ 44100 t) 'rep-cl (+ 88200 t))))
+
+(rep-cl (now))
+
+(define randi
+  (lambda (b t)
+    (inexact->exact (round (+ b (* (random) (- t b)))))))
+
+(define randf
+  (lambda (b t)
+    (+ b (* (random) (- t b)))))
+
+(define total-random
+  (lambda (t)
+    (pln t (randi 1 138) (randi 6000 44100))
+    (callback (+ t 500) 'total-random (+ t (randi 1000 100000)))))
+
+(total-random (now))
+
+
+(motor 0)
