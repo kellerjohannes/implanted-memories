@@ -1,0 +1,9 @@
+To use this Reaper project with the Arciorgano, you need to run the PureData-Patch
+'arciorgano-player.pd'. For the performance, version 1.44 was used.
+
+gitlab.fhnw.ch/johannes.keller/arciorgano-pd-sender
+
+puredata.info
+
+
+
