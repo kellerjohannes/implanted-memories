@@ -20,3 +20,10 @@ light bulb. Additionally the playback of a video is also triggered
 This code was used to perform this piece on the 5th of December 2019
 at Gare du Nord Basel, and on the 11th of December 2021 at Kunstraum
 Walcheturm in Zürich.
+
+To run the code for a revival, use implanted-memories-clean.xtm, after
+loading arciorgano-comm.xtm and implanted-memories-midi.xtm.
+
+To troubleshoot the remote player module, please refer to the
+[Arciorgano Player
+patch](https://github.com/kellerjohannes/arciorgano-player).
