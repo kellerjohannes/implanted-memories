@@ -1,3 +1,4 @@
 (in-package :implanted-memories-2)
 
-(defun init ())
+(defun init ()
+  (init-midi))
