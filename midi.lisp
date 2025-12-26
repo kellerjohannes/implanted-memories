@@ -132,7 +132,6 @@
 
 (defun parse-key (channel onp midi-note)
   "If ONP is T, the key will be switched on, if NIL, switched off."
-  (update-midi-note-state channel midi-note onp)
   (let ((aftertouch (get-aftertouch-state channel midi-note)))
     (when (zerop aftertouch) (setf aftertouch 64))
     (update-key-state channel
@@ -171,20 +170,25 @@
 data."
   (declare (ignore d))
   (cond
+    ;; MIDI note off messages
     ((< 127 a 144)
      (let ((channel (- a 128))
            (midi-note b)
            (velocity c))
        (format t "~&Note off, channel ~a, pitch ~a, off velocity ~a.~%"
                channel midi-note velocity)
+       (update-midi-note-state channel midi-note nil)
        (parse-key channel nil midi-note)))
+    ;; MIDI note on messages
     ((< 143 a 160)
      (let ((channel (- a 144))
            (midi-note b)
            (velocity c))
        (format t "~&Note on, channel ~a, pitch ~a, velocity ~a.~%"
                channel midi-note velocity)
+       (update-midi-note-state channel midi-note t)
        (parse-key channel t midi-note)))
+    ;; MIDI aftertouch (per note, per channel) messages
     ((< 159 a 176)
      (let ((channel (- a 160))
            (midi-note b)
@@ -192,23 +196,30 @@ data."
        (format t "~&Poly aftertouch, channel ~a, midi note ~a, value ~a.~%"
                channel midi-note value)
        (update-aftertouch-state channel midi-note value)))
+    ;; MIDI controller change messages
     ((< 175 a 192)
-     (format t "~&Controller ~a, channel ~a, value ~a.~%" b (- a 176) c))
-    (t (format t "~&Ignored MIDI data: [~a, ~a, ~a]." a b c)))
+     (let ((channel (- a 176))
+           (controller b)
+           (value c))
+       (format t "~&Controller, channel ~a, controller id ~a, value ~a.~%"
+               channel
+               controller
+               value)))
+    (t (format t "~&Ignored MIDI data: [~a, ~a, ~a]." a b c))))
 
 
 
 
 
-  ;; TODO This is old Faderfox code, to be adapted to act on data properly.
-  ;; (if (valid-subscripts-p controller channel)
-  ;;     (let ((callback-fun (aref *midi-callbacks* controller channel)))
-  ;;       (if callback-fun
-  ;;           (funcall callback-fun value-raw)
-  ;;           (log:warn "No callback function defined for setup ~a, channel ~a."
-  ;;                     controller channel)))
-  ;;     (log:warn "No MIDI slot defined for setup ~a, channel ~a." controller channel))
-  )
+
+;; TODO This is old Faderfox code, to be adapted to act on data properly.
+;; (if (valid-subscripts-p controller channel)
+;;     (let ((callback-fun (aref *midi-callbacks* controller channel)))
+;;       (if callback-fun
+;;           (funcall callback-fun value-raw)
+;;           (log:warn "No callback function defined for setup ~a, channel ~a."
+;;                     controller channel)))
+;;     (log:warn "No MIDI slot defined for setup ~a, channel ~a." controller channel))
 
 (defun register-callback (controller channel callback-fun)
   "Exported function to be used to store a callback function for a controller channel."
