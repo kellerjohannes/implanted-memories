@@ -1,4 +1,4 @@
-<REAPER_PROJECT 0.1 "7.56/linux-x86_64" 1765874069 0
+<REAPER_PROJECT 0.1 "7.56/linux-x86_64" 1766682126 0
   <NOTES 0 2
   >
   RIPPLE 0 0
@@ -20,7 +20,7 @@
   PANMODE 3
   PANLAWFLAGS 3
   CURSOR 0
-  ZOOM 100 0 0
+  ZOOM 392.51779035588135 0 0
   VZOOMEX 6 0
   USE_REC_CFG 0
   RECMODE 1
@@ -92,7 +92,7 @@
   >
   <TEMPOENVEX
     EGUID {FCF5F77E-D871-6BE2-342C-A254A2EBA02C}
-    ACT 1 -1
+    ACT 0 -1
     VIS 1 0 1
     LANEHEIGHT 0 0
     ARM 0
@@ -114,10 +114,11 @@
     BUSCOMP 0 0 0 0 0
     SHOWINMIX 1 0.6667 0.5 1 0.5 0 0 0 0
     FIXEDLANES 9 0 0 0 0
+    LANEREC -1 -1 -1 0
     SEL 1
     REC 0 0 1 0 0 0 0 0
     VU 64
-    TRACKHEIGHT 0 0 0 0 0 0 0
+    TRACKHEIGHT 663 0 0 0 0 0 0
     INQ 0 0 0 0.5 100 0 0 100
     NCHAN 2
     FX 1
@@ -147,7 +148,8 @@
         HASDATA 1 960 QN
         CCINTERP 32
         POOLEDEVTS {1A888EB5-E881-7DF3-6F53-8E6AA73C01C3}
-        E 960 92 3e 60
+        E 954 a0 40 41
+        E 6 92 3e 60
         E 0 93 3d 60
         E 0 94 3c 60
         E 0 95 3b 60
@@ -162,7 +164,7 @@
         E 0 9e 32 60
         E 0 9f 31 60
         E 0 91 3f 60
-        E 0 90 40 60
+        e 0 90 40 60
         E 960 82 3e 00
         E 0 83 3d 00
         E 0 84 3c 00
@@ -178,14 +180,14 @@
         E 0 8e 32 00
         E 0 8f 31 00
         E 0 81 3f 00
-        E 0 80 40 00
+        e 0 80 40 00
         E 360 b0 01 4a
         E 120 b0 01 4d
         E 120 b0 01 52
         E 240 b1 00 68
         E 0 b0 01 4f
-        E 120 b1 00 5d
-        E 0 b0 00 17
+        E 120 b0 00 17
+        E 0 b1 00 5d
         E 0 b0 01 4d
         E 120 b1 00 48
         E 0 b0 00 27
@@ -211,12 +213,13 @@
         IGNTEMPO 0 120 4 4
         SRCCOLOR 0
         EVTFILTER 1 -1 -1 -1 -1 0 0 0 0 -1 -1 -1 -1 0 -1 0 -1 -1
+        VELLANE 168 100 0 0 1
         VELLANE 1 100 0 0 1
         VELLANE 0 100 0 0 1
-        CFGEDITVIEW 0 0.226823 36 12 0 0 0 0 0 0.5
+        CFGEDITVIEW 0 0.528828 48 12 0 0 0 0 0 0.5
         KEYSNAP 0
-        TRACKSEL 0
-        CFGEDIT 1 1 0 1 0 1 1 1 1 1 1 0.125 16 16 2558 1392 0 0 0 1 0 0 0 0 0 0.5 0 0 1 64
+        TRACKSEL -252
+        CFGEDIT 1 1 0 1 0 0 1 1 1 0 1 0.125 691 117 2558 1392 0 0 0 1 0 0 0 0 0 0.5 0 0 1 64
       >
     >
   >
