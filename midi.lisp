@@ -93,38 +93,26 @@
       (let ((new-state (aref *key-states* key)))
         (when (or (and original-state (not new-state))
                   (and (not original-state) new-state))
-          (format t "~&TRIGGER: Key ~a updated to state ~a" key new-state)
-          (osc-send key new-state))))))
+          ;; (format t "~&TRIGGER: Key ~a updated to state ~a" key new-state)
+          (trigger-effects-processing channel key new-state)
+          ;; (osc-send key new-state)
+          )))))
 
 (defun get-key-state (key)
   (when (valid-key-state-subscript-p key)
     (aref *key-states* key)))
 
+(defun get-all-active-keys (channel)
+  (let ((result nil))
+    (dotimes (key +number-of-keys+)
+      (when (member channel (aref *key-states* key))
+        (push key result)))
+    result))
+
 (defun reset-all-key-states ()
   (fill-array *key-states* nil))
 
 
-(defun reset-all-states ()
-  (reset-all-key-states)
-  (reset-all-aftertouch-states)
-  (reset-all-midi-note-states))
-
-(defun show-all-states ()
-  (dotimes (channel +number-of-midi-channels+)
-    (dotimes (note +number-of-midi-notes+)
-      (when (plusp (get-aftertouch-state channel note))
-        (format t "~&Aftertouch channel ~a, note ~a is ~a."
-                channel
-                note
-                (get-aftertouch-state channel note)))
-      (when (get-midi-note-state channel note)
-        (format t "~&MIDI note state channel ~a, note ~a is ~a."
-                channel
-                note
-                (get-midi-note-state channel note)))))
-  (dotimes (key (1- +number-of-keys+))
-    (when (get-key-state (1+ key))
-      (format t "~&Key ~a state is ~a." (1+ key) (get-key-state (1+ key))))))
 
 
 
@@ -139,10 +127,6 @@
                       onp)))
 
 
-(defun panic ()
-  (reset-all-states)
-  (loop for key from 1 to +number-of-keys+
-        do (osc-send key nil)))
 
 
 
@@ -204,7 +188,9 @@ data."
        (format t "~&Controller, channel ~a, controller id ~a, value ~a.~%"
                channel
                controller
-               value)))
+               value)
+       (case controller
+         (102 (update-effect channel "clustercloud" value)))))
     (t (format t "~&Ignored MIDI data: [~a, ~a, ~a]." a b c))))
 
 
