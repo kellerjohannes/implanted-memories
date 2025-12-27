@@ -94,6 +94,7 @@
         (when (or (and original-state (not new-state))
                   (and (not original-state) new-state))
           ;; (format t "~&TRIGGER: Key ~a updated to state ~a" key new-state)
+          (format t "~&HANDING OVER TO EFFECTS PROCESSING.")
           (trigger-effects-processing channel key new-state)
           ;; (osc-send key new-state)
           )))))

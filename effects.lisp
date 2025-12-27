@@ -113,11 +113,10 @@
       )))
 
 (defmethod process ((e clustercloud) &optional channel key state)
-  (when (and channel key state (= channel (channel e)))
-    (loop for added-key
-            from (- key (floor (* 0.5 (range e))))
-              to (+ key (ceiling (* 0.5 (range e))))
-          do (update-effect-key (channel e) added-key state))))
+  (when (and channel key (= channel (channel e)))
+    (format t "~&PROCESSING clustercloud note triggered.")
+    (loop for counter from (- key (range e)) to (+ key (range e))
+          do (update-effect-key (channel e) counter state))))
 
 
 
