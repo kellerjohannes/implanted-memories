@@ -1,4 +1,4 @@
-<REAPER_PROJECT 0.1 "7.59/win64" 1769643539 0
+<REAPER_PROJECT 0.1 "7.59/win64" 1769642806 0
   <NOTES 0 2
   >
   RIPPLE 0 0
@@ -19,8 +19,8 @@
   VIDEO_CONFIG 0 0 65792
   PANMODE 3
   PANLAWFLAGS 3
-  CURSOR 777.99333269523277
-  ZOOM 0.75193446449388 0 0
+  CURSOR 1510.0656806347697
+  ZOOM 178.49143140056134 268760 0
   VZOOMEX 6 0
   USE_REC_CFG 0
   RECMODE 1
@@ -1175,7 +1175,7 @@
       FADEIN 1 0 0 1 0 0 0
       FADEOUT 1 0 0 1 0 0 0
       MUTE 0 0
-      SEL 0
+      SEL 1
       GROUP 2
       IGUID {F7C9FF50-93B7-422C-B65E-DA80B2CA4476}
       IID 197
@@ -1214,7 +1214,7 @@
       FADEIN 1 0 0 1 0 0 0
       FADEOUT 1 0 0 1 0 0 0
       MUTE 0 0
-      SEL 0
+      SEL 1
       GROUP 2
       IGUID {18D8C4EA-C989-44D6-8517-8F59037D252B}
       IID 201
@@ -1253,7 +1253,7 @@
       FADEIN 1 0 0 1 0 0 0
       FADEOUT 1 0 0 1 0 0 0
       MUTE 0 0
-      SEL 0
+      SEL 1
       GROUP 2
       IGUID {78E5120A-3A60-4CDC-9BFE-A44A075CB91C}
       IID 204
@@ -1294,7 +1294,7 @@
       FADEIN 1 0 0 1 0 0 0
       FADEOUT 1 0 0 1 0 0 0
       MUTE 0 0
-      SEL 0
+      SEL 1
       GROUP 2
       IGUID {21BD0405-0595-4D77-8CD6-798DAC480A19}
       IID 158
@@ -1343,7 +1343,7 @@
       FADEIN 1 0 0 1 0 0 0
       FADEOUT 1 0 0 1 0 0 0
       MUTE 0 0
-      SEL 0
+      SEL 1
       GROUP 2
       IGUID {B8706B48-0F60-4F66-AF71-F0EB88B461AB}
       IID 217
@@ -1390,7 +1390,7 @@
       FADEIN 1 0 0 1 0 0 0
       FADEOUT 1 0 0 1 0 0 0
       MUTE 0 0
-      SEL 0
+      SEL 1
       GROUP 2
       IGUID {30FE3772-20CA-49A6-A851-A8A0ACAA520E}
       IID 198
@@ -1441,7 +1441,7 @@
       FADEIN 1 0 0 1 0 0 0
       FADEOUT 1 0 0 1 0 0 0
       MUTE 0 0
-      SEL 0
+      SEL 1
       GROUP 2
       IGUID {88BE4B5B-B02A-4EE1-AED0-6B123695CA73}
       IID 159
@@ -1490,7 +1490,7 @@
       FADEIN 1 0 0 1 0 0 0
       FADEOUT 1 0 0 1 0 0 0
       MUTE 0 0
-      SEL 0
+      SEL 1
       GROUP 2
       IGUID {F801BDF9-7990-4ADD-946C-FB28BC0E44E1}
       IID 194
@@ -1539,7 +1539,7 @@
       FADEIN 1 0 0 1 0 0 0
       FADEOUT 1 0 0 1 0 0 0
       MUTE 0 0
-      SEL 0
+      SEL 1
       GROUP 2
       IGUID {AC2479C4-D5FA-4B0C-8A6F-581222D29006}
       IID 205
@@ -1582,7 +1582,7 @@
       FADEIN 1 0 0 1 0 0 0
       FADEOUT 1 0 0 1 0 0 0
       MUTE 0 0
-      SEL 0
+      SEL 1
       GROUP 2
       IGUID {40301B77-646B-4B4E-8D06-FDD080369BBA}
       IID 193
@@ -1627,7 +1627,7 @@
       FADEIN 1 0 0 1 0 0 0
       FADEOUT 1 0 0 1 0 0 0
       MUTE 0 0
-      SEL 0
+      SEL 1
       GROUP 2
       IGUID {9EA7922F-3119-43A4-BAE9-1D9AFCB04EF0}
       IID 167
@@ -1684,7 +1684,7 @@
       FADEIN 1 0 0 1 0 0 0
       FADEOUT 1 0 0 1 0 0 0
       MUTE 0 0
-      SEL 0
+      SEL 1
       GROUP 2
       IGUID {7736B8A9-0326-4FCA-A6C5-F29ABA1C9E4A}
       IID 188
@@ -1725,7 +1725,7 @@
       FADEIN 1 0 0 1 0 0 0
       FADEOUT 1 0 0 1 0 0 0
       MUTE 0 0
-      SEL 0
+      SEL 1
       GROUP 2
       IGUID {F5D9786E-695B-4532-A781-2C027522C77A}
       IID 189
@@ -1770,7 +1770,7 @@
       FADEIN 1 0 0 1 0 0 0
       FADEOUT 1 0 0 1 0 0 0
       MUTE 0 0
-      SEL 0
+      SEL 1
       GROUP 2
       IGUID {B1E5B089-6E99-45EF-9576-BE9A73EBE06E}
       IID 190
@@ -1811,7 +1811,7 @@
       FADEIN 1 0 0 1 0 0 0
       FADEOUT 1 0 0 1 0 0 0
       MUTE 0 0
-      SEL 0
+      SEL 1
       GROUP 2
       IGUID {82C74EFE-553B-4F21-9CAA-A5583DAF1203}
       IID 203
@@ -1850,7 +1850,7 @@
       FADEIN 1 0 0 1 0 0 0
       FADEOUT 1 0 0 1 0 0 0
       MUTE 0 0
-      SEL 0
+      SEL 1
       GROUP 2
       IGUID {829FD2A8-78A1-449D-8C81-7AE104052936}
       IID 191
@@ -1892,7 +1892,7 @@
       FADEIN 1 0 0 1 0 0 0
       FADEOUT 1 0 0 1 0 0 0
       MUTE 0 0
-      SEL 0
+      SEL 1
       GROUP 2
       IGUID {E1FB6BD6-3FA0-4AB7-97F0-FD5B834BD109}
       IID 192
@@ -1933,7 +1933,7 @@
       FADEIN 1 0 0 1 0 0 0
       FADEOUT 1 0 0 1 0 0 0
       MUTE 0 0
-      SEL 0
+      SEL 1
       GROUP 2
       IGUID {851D756D-AB44-4F4B-B3AF-9E985B2173FA}
       IID 200
@@ -1972,7 +1972,7 @@
       FADEIN 1 0 0 1 0 0 0
       FADEOUT 1 0 0 1 0 0 0
       MUTE 0 0
-      SEL 0
+      SEL 1
       GROUP 2
       IGUID {FE080FA1-47D2-4A6C-A057-CBA78BE9A603}
       IID 232
@@ -2013,7 +2013,7 @@
       FADEIN 1 0 0 1 0 0 0
       FADEOUT 1 0 0 1 0 0 0
       MUTE 0 0
-      SEL 0
+      SEL 1
       GROUP 2
       IGUID {D3990A9E-9067-4BE7-AD00-772CFF4737E8}
       IID 167
@@ -2070,7 +2070,7 @@
       FADEIN 1 0 0 1 0 0 0
       FADEOUT 1 0 0 1 0 0 0
       MUTE 0 0
-      SEL 0
+      SEL 1
       GROUP 2
       IGUID {963C1993-C5FD-403E-9B81-C6C7E325E136}
       IID 235
@@ -2109,7 +2109,7 @@
       FADEIN 1 0 0 1 0 0 0
       FADEOUT 1 0 0 1 0 0 0
       MUTE 0 0
-      SEL 0
+      SEL 1
       GROUP 2
       IGUID {43F8BD30-016D-47D8-91A3-3D15DAE72BC0}
       IID 202
@@ -2159,7 +2159,7 @@
       FADEIN 1 0 0 1 0 0 0
       FADEOUT 1 0 0 1 0 0 0
       MUTE 0 0
-      SEL 0
+      SEL 1
       GROUP 2
       IGUID {CD4EE15A-015E-49D9-8BB2-3460B137F0E3}
       IID 196
@@ -2208,7 +2208,7 @@
       FADEIN 1 0 0 1 0 0 0
       FADEOUT 1 0 0 1 0 0 0
       MUTE 0 0
-      SEL 0
+      SEL 1
       GROUP 2
       IGUID {7A61F1E5-EF8E-4597-ACEB-1127022FDA3B}
       IID 199
@@ -2249,7 +2249,7 @@
       FADEIN 1 0 0 1 0 0 0
       FADEOUT 1 0 0 1 0 0 0
       MUTE 0 0
-      SEL 0
+      SEL 1
       GROUP 2
       IGUID {B65CBAD5-7841-4B00-B60C-E05B8D94492D}
       IID 195
@@ -2290,7 +2290,7 @@
       FADEIN 1 0 0 1 0 0 0
       FADEOUT 1 0 0 1 0 0 0
       MUTE 0 0
-      SEL 0
+      SEL 1
       GROUP 2
       IGUID {25C22913-C0B3-431B-BFDE-B1B07B5BDB9C}
       IID 204
@@ -2331,7 +2331,7 @@
       FADEIN 1 0 0 1 0 0 0
       FADEOUT 1 0 0 1 0 0 0
       MUTE 0 0
-      SEL 0
+      SEL 1
       GROUP 2
       IGUID {62812902-9CF6-40D4-B748-CBB12C3261D7}
       IID 36
@@ -2372,7 +2372,7 @@
       FADEIN 1 0 0 1 0 0 0
       FADEOUT 1 0 0 1 0 0 0
       MUTE 0 0
-      SEL 0
+      SEL 1
       GROUP 2
       IGUID {7080E30D-F8C8-4E84-A70B-9402F439FB78}
       IID 58
@@ -2413,7 +2413,7 @@
       FADEIN 1 0 0 1 0 0 0
       FADEOUT 1 0 0 1 0 0 0
       MUTE 0 0
-      SEL 0
+      SEL 1
       GROUP 2
       IGUID {FB456C03-B082-4453-896A-7C6E3CC7CB76}
       IID 69
@@ -2452,7 +2452,7 @@
       FADEIN 1 0 0 1 0 0 0
       FADEOUT 1 0 0 1 0 0 0
       MUTE 0 0
-      SEL 0
+      SEL 1
       GROUP 2
       IGUID {AEBCC548-AAD0-444B-9472-211310874450}
       IID 55
@@ -2493,7 +2493,7 @@
       FADEIN 1 0 0 1 0 0 0
       FADEOUT 1 0 0 1 0 0 0
       MUTE 0 0
-      SEL 0
+      SEL 1
       GROUP 2
       IGUID {CB006770-A75E-49C2-9A34-AFE01B27F2FF}
       IID 64
@@ -2534,7 +2534,7 @@
       FADEIN 1 0 0 1 0 0 0
       FADEOUT 1 0 0 1 0 0 0
       MUTE 0 0
-      SEL 0
+      SEL 1
       GROUP 2
       IGUID {A333FCA4-26A5-47EE-94A8-8DC212FCA7E2}
       IID 80
@@ -2575,7 +2575,7 @@
       FADEIN 1 0 0 1 0 0 0
       FADEOUT 1 0 0 1 0 0 0
       MUTE 0 0
-      SEL 0
+      SEL 1
       GROUP 2
       IGUID {B04091BA-65F8-4985-AFAB-032432A3894C}
       IID 40
@@ -2618,7 +2618,7 @@
       FADEIN 1 0 0 1 0 0 0
       FADEOUT 1 0 0 1 0 0 0
       MUTE 0 0
-      SEL 0
+      SEL 1
       GROUP 2
       IGUID {F1E85C16-17CA-427F-8081-4078E9A2D766}
       IID 93
@@ -2661,7 +2661,7 @@
       FADEIN 1 0 0 1 0 0 0
       FADEOUT 1 0 0 1 0 0 0
       MUTE 0 0
-      SEL 0
+      SEL 1
       GROUP 2
       IGUID {18C86BDA-92CF-4289-811C-A45BA5E3AA32}
       IID 55
@@ -2702,7 +2702,7 @@
       FADEIN 1 0 0 1 0 0 0
       FADEOUT 1 0 0 1 0 0 0
       MUTE 0 0
-      SEL 0
+      SEL 1
       GROUP 2
       IGUID {C1B52031-2082-4A87-9FBD-39782CF3869F}
       IID 208
@@ -2757,7 +2757,7 @@
       FADEIN 1 0 0 1 0 0 0
       FADEOUT 1 0 0 1 0 0 0
       MUTE 0 0
-      SEL 0
+      SEL 1
       GROUP 2
       IGUID {969AC822-BB9E-472B-B5BD-3E0B18572330}
       IID 106
@@ -2798,7 +2798,7 @@
       FADEIN 1 0 0 1 0 0 0
       FADEOUT 1 0 0 1 0 0 0
       MUTE 0 0
-      SEL 0
+      SEL 1
       GROUP 2
       IGUID {3D4295A8-10D2-42E6-ABAF-87E8D8E7F3BE}
       IID 16
@@ -2841,7 +2841,7 @@
       FADEIN 1 0 0 1 0 0 0
       FADEOUT 1 0 0 1 0 0 0
       MUTE 0 0
-      SEL 0
+      SEL 1
       GROUP 2
       IGUID {9544FAC1-A778-44FE-B2EC-0D11F42C49D8}
       IID 108
@@ -2880,7 +2880,7 @@
       FADEIN 1 0 0 1 0 0 0
       FADEOUT 1 0 0 1 0 0 0
       MUTE 0 0
-      SEL 0
+      SEL 1
       GROUP 2
       IGUID {1ED2EC46-75F2-4DD5-AE28-6EC1895DFE4B}
       IID 61
@@ -2921,7 +2921,7 @@
       FADEIN 1 0 0 1 0 0 0
       FADEOUT 1 0 0 1 0 0 0
       MUTE 0 0
-      SEL 0
+      SEL 1
       GROUP 2
       IGUID {9C068A88-3937-488B-B27C-61AE6C8DE508}
       IID 135
@@ -2970,7 +2970,7 @@
       FADEIN 1 0 0 1 0 0 0
       FADEOUT 1 0 0 1 0 0 0
       MUTE 0 0
-      SEL 0
+      SEL 1
       GROUP 2
       IGUID {B644ACDB-0FF7-4993-8894-EA07BFE82631}
       IID 107
@@ -3009,7 +3009,7 @@
       FADEIN 1 0 0 1 0 0 0
       FADEOUT 1 0 0 1 0 0 0
       MUTE 0 0
-      SEL 0
+      SEL 1
       GROUP 2
       IGUID {6AC02E1C-84A1-429F-A48D-EACD5D7B6837}
       IID 131
@@ -3068,7 +3068,7 @@
       FADEIN 1 0 0 1 0 0 0
       FADEOUT 1 0 0 1 0 0 0
       MUTE 0 0
-      SEL 0
+      SEL 1
       GROUP 2
       IGUID {E16C0747-A015-47EB-BE0E-90C0DB82742F}
       IID 212
@@ -3107,7 +3107,7 @@
       FADEIN 1 0 0 1 0 0 0
       FADEOUT 1 0 0 1 0 0 0
       MUTE 0 0
-      SEL 0
+      SEL 1
       GROUP 2
       IGUID {CA1BC0A5-4235-48DD-922F-A001431CC885}
       IID 41
@@ -3154,7 +3154,7 @@
       FADEIN 1 0 0 1 0 0 0
       FADEOUT 1 0 0 1 0 0 0
       MUTE 0 0
-      SEL 0
+      SEL 1
       GROUP 2
       IGUID {FF1166EC-62EF-43AC-BBB9-8106328F1E4F}
       IID 40
@@ -3197,7 +3197,7 @@
       FADEIN 1 0 0 1 0 0 0
       FADEOUT 1 0 0 1 0 0 0
       MUTE 0 0
-      SEL 0
+      SEL 1
       GROUP 2
       IGUID {348A9001-FD1B-47B5-A195-D987287D05BE}
       IID 18
@@ -3242,7 +3242,7 @@
       FADEIN 1 0 0 1 0 0 0
       FADEOUT 1 0 0 1 0 0 0
       MUTE 0 0
-      SEL 0
+      SEL 1
       GROUP 2
       IGUID {B1FE7772-1B76-4168-A9B0-95FDA1707581}
       IID 109
@@ -3281,7 +3281,7 @@
       FADEIN 1 0 0 1 0 0 0
       FADEOUT 1 0 0 1 0 0 0
       MUTE 0 0
-      SEL 0
+      SEL 1
       GROUP 2
       IGUID {28165565-27A7-4BBA-88B9-3D67D58C80C3}
       IID 34
@@ -3327,7 +3327,7 @@
       FADEIN 1 0 0 1 0 0 0
       FADEOUT 1 0 0 1 0 0 0
       MUTE 0 0
-      SEL 0
+      SEL 1
       GROUP 2
       IGUID {6093D926-5C34-4141-9261-6851599DD824}
       IID 207
@@ -3368,7 +3368,7 @@
       FADEIN 1 0 0 1 0 0 0
       FADEOUT 1 0 0 1 0 0 0
       MUTE 0 0
-      SEL 0
+      SEL 1
       GROUP 2
       IGUID {9ADD2F7B-1F68-4E48-87D5-28226E26872D}
       IID 206
@@ -3417,7 +3417,7 @@
       FADEIN 1 0 0 1 0 0 0
       FADEOUT 1 0 0 1 0 0 0
       MUTE 0 0
-      SEL 0
+      SEL 1
       GROUP 2
       IGUID {158A0936-9748-45FC-9CC3-D72AB87C9F5C}
       IID 209
@@ -3456,7 +3456,7 @@
       FADEIN 1 0 0 1 0 0 0
       FADEOUT 1 0 0 1 0 0 0
       MUTE 0 0
-      SEL 0
+      SEL 1
       GROUP 2
       IGUID {A926C5F2-9D82-452F-BE55-BB380FA24539}
       IID 98
@@ -3497,7 +3497,7 @@
       FADEIN 1 0 0 1 0 0 0
       FADEOUT 1 0 0 1 0 0 0
       MUTE 0 0
-      SEL 0
+      SEL 1
       GROUP 2
       IGUID {F399A408-1A06-4C5C-88E4-7B66078C6A60}
       IID 127
@@ -3540,7 +3540,7 @@
       FADEIN 1 0 0 1 0 0 0
       FADEOUT 1 0 0 1 0 0 0
       MUTE 0 0
-      SEL 0
+      SEL 1
       GROUP 2
       IGUID {CF15689F-EE27-4DE0-9D43-591A59F3456E}
       IID 128
@@ -3583,7 +3583,7 @@
       FADEIN 1 0 0 1 0 0 0
       FADEOUT 1 0 0 1 0 0 0
       MUTE 0 0
-      SEL 0
+      SEL 1
       GROUP 2
       IGUID {E887AFDC-9027-42EE-AAA8-568749A8CC09}
       IID 124
@@ -3638,7 +3638,7 @@
       FADEIN 1 0 0 1 0 0 0
       FADEOUT 1 0 0 1 0 0 0
       MUTE 0 0
-      SEL 0
+      SEL 1
       GROUP 2
       IGUID {C2FB1ED0-4165-4320-B713-4819E346AC0F}
       IID 25
@@ -3677,7 +3677,7 @@
       FADEIN 1 0 0 1 0 0 0
       FADEOUT 1 0 0 1 0 0 0
       MUTE 0 0
-      SEL 0
+      SEL 1
       GROUP 2
       IGUID {F7E9016A-108E-4C28-8714-8EAECE232B7A}
       IID 29
@@ -3718,7 +3718,7 @@
       FADEIN 1 0 0 1 0 0 0
       FADEOUT 1 0 0 1 0 0 0
       MUTE 0 0
-      SEL 0
+      SEL 1
       GROUP 2
       IGUID {0B5CC12F-C5CC-4736-9F98-82E9A39DA56E}
       IID 126
@@ -3759,7 +3759,7 @@
       FADEIN 1 0 0 1 0 0 0
       FADEOUT 1 0 0 1 0 0 0
       MUTE 0 0
-      SEL 0
+      SEL 1
       GROUP 2
       IGUID {66F22C57-10E5-4AC3-A786-297606A61F2E}
       IID 72
@@ -3800,7 +3800,7 @@
       FADEIN 1 0 0 1 0 0 0
       FADEOUT 1 0 0 1 0 0 0
       MUTE 0 0
-      SEL 0
+      SEL 1
       GROUP 2
       IGUID {6B2AF807-B498-493F-A657-9EFB81263822}
       IID 19
@@ -3839,7 +3839,7 @@
       FADEIN 1 0 0 1 0 0 0
       FADEOUT 1 0 0 1 0 0 0
       MUTE 0 0
-      SEL 0
+      SEL 1
       GROUP 2
       IGUID {40885DD5-1A4F-4C59-9DCA-71CEC22EB526}
       IID 22
@@ -3882,7 +3882,7 @@
       FADEIN 1 0 0 1 0 0 0
       FADEOUT 1 0 0 1 0 0 0
       MUTE 0 0
-      SEL 0
+      SEL 1
       GROUP 2
       IGUID {3060D63A-7144-46C5-BEEE-ACD53CFCCB13}
       IID 17
@@ -3921,7 +3921,7 @@
       FADEIN 1 0 0 1 0 0 0
       FADEOUT 1 0 0 1 0 0 0
       MUTE 0 0
-      SEL 0
+      SEL 1
       GROUP 2
       IGUID {AC1B064C-5002-401C-939B-88595035B82D}
       IID 53
@@ -3972,7 +3972,7 @@
       FADEIN 1 0 0 1 0 0 0
       FADEOUT 1 0 0 1 0 0 0
       MUTE 0 0
-      SEL 0
+      SEL 1
       GROUP 2
       IGUID {D8344AA9-03FD-4AE2-870B-C549436457C2}
       IID 123
@@ -4017,7 +4017,7 @@
       FADEIN 1 0 0 1 0 0 0
       FADEOUT 1 0 0 1 0 0 0
       MUTE 0 0
-      SEL 0
+      SEL 1
       GROUP 2
       IGUID {7447924D-8B0F-4F7E-85A4-726872FD16DE}
       IID 211
@@ -4064,7 +4064,7 @@
       FADEIN 1 0 0 1 0 0 0
       FADEOUT 1 0 0 1 0 0 0
       MUTE 0 0
-      SEL 0
+      SEL 1
       GROUP 2
       IGUID {F95D6CD8-C3CA-429B-8AF5-E44711FC546F}
       IID 125
@@ -4103,7 +4103,7 @@
       FADEIN 1 0 0 1 0 0 0
       FADEOUT 1 0 0 1 0 0 0
       MUTE 0 0
-      SEL 0
+      SEL 1
       GROUP 2
       IGUID {ACDF5FA1-347C-4463-9CC9-55FAF2670CE9}
       IID 47
@@ -4148,7 +4148,7 @@
       FADEIN 1 0 0 1 0 0 0
       FADEOUT 1 0 0 1 0 0 0
       MUTE 0 0
-      SEL 0
+      SEL 1
       GROUP 2
       IGUID {126610B2-6A56-4A42-A935-F398D80B32DC}
       IID 50
@@ -4211,7 +4211,7 @@
       FADEIN 1 0 0 1 0 0 0
       FADEOUT 1 0 0 1 0 0 0
       MUTE 0 0
-      SEL 0
+      SEL 1
       GROUP 2
       IGUID {9529FED1-B839-4177-AAD8-18A93817DAB4}
       IID 210
@@ -4254,7 +4254,7 @@
       FADEIN 1 0 0 1 0 0 0
       FADEOUT 1 0 0 1 0 0 0
       MUTE 0 0
-      SEL 0
+      SEL 1
       GROUP 2
       IGUID {D13F1B9C-8D88-4D18-9CFC-BB9EC07347ED}
       IID 41
@@ -4301,7 +4301,7 @@
       FADEIN 1 0 0 1 0 0 0
       FADEOUT 1 0 0 1 0 0 0
       MUTE 0 0
-      SEL 0
+      SEL 1
       GROUP 2
       IGUID {2145FD7E-746F-4CF6-9095-F383304F2422}
       IID 75
@@ -4340,7 +4340,7 @@
       FADEIN 1 0 0 1 0 0 0
       FADEOUT 1 0 0 1 0 0 0
       MUTE 0 0
-      SEL 0
+      SEL 1
       GROUP 2
       IGUID {15F55227-164E-4A67-931E-CC71189F2D36}
       IID 46
@@ -4379,7 +4379,7 @@
       FADEIN 1 0 0 1 0 0 0
       FADEOUT 1 0 0 1 0 0 0
       MUTE 0 0
-      SEL 0
+      SEL 1
       GROUP 2
       IGUID {88A94B2B-F849-4572-BC4A-F6E61AF18BC6}
       IID 332
@@ -4424,7 +4424,7 @@
       FADEIN 1 0 0 1 0 0 0
       FADEOUT 1 0 0 1 0 0 0
       MUTE 0 0
-      SEL 0
+      SEL 1
       GROUP 2
       IGUID {13535C88-5AD0-4A2A-A837-89BC8CC651D4}
       IID 53
