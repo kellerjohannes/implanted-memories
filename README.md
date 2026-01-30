@@ -27,3 +27,8 @@ loading arciorgano-comm.xtm and implanted-memories-midi.xtm.
 To troubleshoot the remote player module, please refer to the
 [Arciorgano Player
 patch](https://github.com/kellerjohannes/arciorgano-player).
+
+
+In January 2026, Lin Korobkova reworked the entire piece for a performance on the 6th of February 2026 at the ECLAT festival in Stuttgart. This required an entirely new implementation. Since Lin notated the entire piece in staff notation, it seemed pointless to create program code to generate the musical events. Instead, the score was manually converted to MIDI, using Reaper. In an early stage of this process, Johannes Keller attempted to compute certain effects with a tool written in Common Lisp, mainly glissandi and dynamics. Since the score is very much deteministic and the effects needed to be finetunged manually anyways, this approach was to cumbersome. Therefore the Stuttgart manifestation of this piece is performed entirely from Reaper sending MIDI to the old PureData patch that converts the MIDI events into serial data sent to the player module of the Arciorgano.
+
+
